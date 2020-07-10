@@ -11,26 +11,33 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="112dp"
-        tools:layout_editor_absoluteY="-64dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <Button
             android:id="@+id/from"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_width="150dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/rounded_button"
             android:drawableStart="@drawable/ic_access_time_black_24dp"
+            android:drawableLeft="@drawable/ic_access_time_black_24dp"
             android:hint="@string/From_time"
             android:text="@string/From_time"
-            android:drawableLeft="@drawable/ic_access_time_black_24dp" />
+            android:textAlignment="center" />
 
         <Button
             android:id="@+id/to"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_width="150dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/rounded_button"
             android:drawableStart="@drawable/ic_access_time_black_24dp"
+            android:drawableLeft="@drawable/ic_access_time_black_24dp"
             android:hint="@string/To_time"
             android:text="@string/To_time"
-            android:drawableLeft="@drawable/ic_access_time_black_24dp" />
+            android:textAlignment="center" />
 
         <CalendarView
             android:id="@+id/date"

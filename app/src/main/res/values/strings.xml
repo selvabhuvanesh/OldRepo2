@@ -8,10 +8,11 @@
     <string name="provider_hint">Enter Doctor Name</string>
     <string name="From_time">From Time</string>
     <string name="To_time">To Time</string>
-    <string name="publish">Publish</string>
+    <string name="publish">Confirm</string>
     <string name="Save">Save</string>
     <string name="Modify">Modify</string>
     <string name="Cancel">Cancel</string>
     <string name="proceed">Proceed with Scheduling</string>
+    <string name="fronttext">Service Information</string>
 
 </resources>

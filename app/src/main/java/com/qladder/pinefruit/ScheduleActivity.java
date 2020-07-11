@@ -1,5 +1,6 @@
 package com.qladder.pinefruit;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
@@ -8,9 +9,13 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CalendarView;
+import android.widget.DatePicker;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -20,6 +25,7 @@ public class ScheduleActivity extends AppCompatActivity {
     Button toTime;
     Button savebtn;
     Button publishbtn;
+    CalendarView date;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +35,7 @@ public class ScheduleActivity extends AppCompatActivity {
         toTime = (Button) findViewById(R.id.totime);
         savebtn = (Button) findViewById(R.id.save);
         publishbtn = (Button) findViewById(R.id.publish);
-
+        date = (CalendarView) findViewById(R.id.date);
 
         //Code while selecting From time to go hear
         fromTime.setOnClickListener(new View.OnClickListener() {
@@ -50,11 +56,22 @@ public class ScheduleActivity extends AppCompatActivity {
         });
 
 
+        //Set the date picked from the calendar
+
+
         //method for onclick of Save button
         savebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                Intent mainIntent = getIntent();
                 Intent saveIntent = new Intent(ScheduleActivity.this,RegitserConfirm.class);
+                saveIntent.putExtra("service",mainIntent.getStringExtra("service"));
+                saveIntent.putExtra("facility",mainIntent.getStringExtra("facility"));
+                saveIntent.putExtra("provider",mainIntent.getStringExtra("provider"));
+                saveIntent.putExtra("fromtime",fromTime.getText().toString());
+                saveIntent.putExtra("totime",toTime.getText().toString());
+                //saveIntent.putExtra("sdate",sDate.getText().toString());
                 startActivity(saveIntent);
             }
         });
@@ -63,10 +80,34 @@ public class ScheduleActivity extends AppCompatActivity {
         publishbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent confirmIntent = new Intent(ScheduleActivity.this,RegitserConfirm.class);
-                startActivity(confirmIntent);
+                //Intent confirmIntent = new Intent(ScheduleActivity.this,RegitserConfirm.class);
+                //startActivity(confirmIntent);
             }
         });
+
+        date.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
+                Toast.makeText(ScheduleActivity.this,"Day is :"+i2,Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        String facility;
+        String provider;
+        String service;
+        Intent homeIntent = getIntent();
+        service = homeIntent.getStringExtra("service");
+        provider = homeIntent.getStringExtra("provider");
+        facility = homeIntent.getStringExtra("facility");
+
+        Log.d("Resume Called ***** ",service);
+        Toast.makeText(this,"Service Name : "+ service+"\n Provider : "+provider+"\n Facility : "+facility,Toast.LENGTH_LONG).show();
 
 
     }
@@ -95,6 +136,8 @@ public class ScheduleActivity extends AppCompatActivity {
         DialogFragment newFragment = new TimePickerFragment();
         newFragment.show(getSupportFragmentManager(), "timePicker");
     }
+
+
 }
 
 

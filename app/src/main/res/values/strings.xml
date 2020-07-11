@@ -15,6 +15,6 @@
     <string name="proceed">Proceed with Scheduling</string>
     <string name="fronttext">Service Information</string>
     <string name="confrimlabel">Service Confirmation</string>
-    <string name="booksuccess">Success !!!</string>
+    <string name="booksuccess">Success !!! Verify your service information and share to take bookings !!</string>
 
 </resources>

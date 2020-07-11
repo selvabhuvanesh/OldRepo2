@@ -5,14 +5,12 @@ import androidx.fragment.app.DialogFragment;
 
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -27,8 +25,8 @@ public class ScheduleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
 
-        fromTime =(Button) findViewById(R.id.from);
-        toTime = (Button) findViewById(R.id.to);
+        fromTime =(Button) findViewById(R.id.fromtime);
+        toTime = (Button) findViewById(R.id.totime);
         savebtn = (Button) findViewById(R.id.save);
         publishbtn = (Button) findViewById(R.id.publish);
 
@@ -56,7 +54,8 @@ public class ScheduleActivity extends AppCompatActivity {
         savebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                Intent saveIntent = new Intent(ScheduleActivity.this,RegitserConfirm.class);
+                startActivity(saveIntent);
             }
         });
 
@@ -64,7 +63,8 @@ public class ScheduleActivity extends AppCompatActivity {
         publishbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                Intent confirmIntent = new Intent(ScheduleActivity.this,RegitserConfirm.class);
+                startActivity(confirmIntent);
             }
         });
 

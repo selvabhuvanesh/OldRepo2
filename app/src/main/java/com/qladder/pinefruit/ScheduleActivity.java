@@ -17,28 +17,32 @@ import android.widget.DatePicker;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.sql.Date;
 import java.util.Calendar;
 
 public class ScheduleActivity extends AppCompatActivity {
 
-    Button fromTime;
-    Button toTime;
+    Button fromTimebtn;
+    Button toTimebtn;
     Button savebtn;
     Button publishbtn;
-    CalendarView date;
+    CalendarView sdate;
+    Date selectedDate;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
 
-        fromTime =(Button) findViewById(R.id.fromtime);
-        toTime = (Button) findViewById(R.id.totime);
+        fromTimebtn =(Button) findViewById(R.id.fromtime);
+        toTimebtn = (Button) findViewById(R.id.totime);
         savebtn = (Button) findViewById(R.id.save);
         publishbtn = (Button) findViewById(R.id.publish);
-        date = (CalendarView) findViewById(R.id.date);
+        sdate = (CalendarView) findViewById(R.id.date);
 
         //Code while selecting From time to go hear
-        fromTime.setOnClickListener(new View.OnClickListener() {
+        fromTimebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                //Dialog fromDialog = new Dialog(ScheduleActivity.this);
@@ -48,7 +52,7 @@ public class ScheduleActivity extends AppCompatActivity {
 
 
         //Code while selecting to Time should go here
-        toTime.setOnClickListener(new View.OnClickListener() {
+        toTimebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showTimePickerDialog(view);
@@ -69,10 +73,11 @@ public class ScheduleActivity extends AppCompatActivity {
                 saveIntent.putExtra("service",mainIntent.getStringExtra("service"));
                 saveIntent.putExtra("facility",mainIntent.getStringExtra("facility"));
                 saveIntent.putExtra("provider",mainIntent.getStringExtra("provider"));
-                saveIntent.putExtra("fromtime",fromTime.getText().toString());
-                saveIntent.putExtra("totime",toTime.getText().toString());
-                //saveIntent.putExtra("sdate",sDate.getText().toString());
+                saveIntent.putExtra("fromtime",fromTimebtn.getText().toString());
+                saveIntent.putExtra("totime",toTimebtn.getText().toString());
+                saveIntent.putExtra("sdate",selectedDate);
                 startActivity(saveIntent);
+
             }
         });
 
@@ -82,13 +87,15 @@ public class ScheduleActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //Intent confirmIntent = new Intent(ScheduleActivity.this,RegitserConfirm.class);
                 //startActivity(confirmIntent);
-            }
+                            }
         });
 
-        date.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+        sdate.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
-                Toast.makeText(ScheduleActivity.this,"Day is :"+i2,Toast.LENGTH_LONG).show();
+                //Toast.makeText(ScheduleActivity.this,"Day is :"+i2,Toast.LENGTH_LONG).show();
+                //Toast.makeText(ScheduleActivity.this,"Day is :"+sdate.getWeekDayTextAppearance(),Toast.LENGTH_LONG).show();
+                selectedDate = new Date(i,i1,i2);
 
             }
         });
@@ -129,6 +136,9 @@ public class ScheduleActivity extends AppCompatActivity {
 
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             // Do something with the time chosen by the user
+
+
+
         }
     }
 

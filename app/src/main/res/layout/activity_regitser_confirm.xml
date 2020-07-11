@@ -75,10 +75,10 @@
         android:text="@string/service_label"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Facility" />
+        app:layout_constraintTop_toBottomOf="@+id/facility" />
 
     <TextView
-        android:id="@+id/Facility"
+        android:id="@+id/facility"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"

@@ -30,6 +30,7 @@ Button sharebtn;
             public void onClick(View view) {
                 Intent modifyIntent = new Intent(RegitserConfirm.this,MainActivity.class);
                 startActivity(modifyIntent);
+                //finish();
             }
         });
     }

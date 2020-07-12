@@ -10,9 +10,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".SessionListListActivity"
+            android:label="@string/title_sessionlist_list"
+            android:parentActivityName=".ProviderChoice"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.qladder.pinefruit.ProviderChoice" />
+        </activity>
+        <activity
             android:name=".MenuListActivity"
             android:label="@string/title_menu_list"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MenuDetailActivity"
             android:label="@string/title_menu_detail"

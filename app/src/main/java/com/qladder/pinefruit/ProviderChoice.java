@@ -30,11 +30,10 @@ Button viewbtn;
         viewbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // Intent viewIntent = new Intent(ProviderChoice.this,MenuListActivity.class);
-               // startActivity(view);
+                Intent viewIntent = new Intent(ProviderChoice.this,SessionListListActivity.class);
+                startActivity(viewIntent);
             }
         });
 
 
-    }
-}
+    }}

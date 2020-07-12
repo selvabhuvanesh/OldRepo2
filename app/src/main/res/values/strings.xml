@@ -20,5 +20,7 @@
     <string name="createbtnlabel">Create New</string>
     <string name="title_menu_list">Items</string>
     <string name="title_menu_detail">Menu Detail</string>
+    <string name="title_sessionlist_list">Sessions</string>
+    <string name="title_sessionlist_detail">SessionList Detail</string>
 
 </resources>

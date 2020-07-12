@@ -9,15 +9,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RegitserConfirm"></activity>
-        <activity android:name=".ScheduleActivity" />
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MenuListActivity"
+            android:label="@string/title_menu_list"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".MenuDetailActivity"
+            android:label="@string/title_menu_detail"
+            android:parentActivityName=".MenuListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.qladder.pinefruit.MenuListActivity" />
+        </activity>
+        <activity android:name=".ProviderChoice">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".RegitserConfirm" />
+        <activity android:name=".ScheduleActivity" />
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

@@ -16,5 +16,9 @@
     <string name="fronttext">Service Information</string>
     <string name="confrimlabel">Service Confirmation</string>
     <string name="booksuccess">Success !!! Verify your service information and share to take bookings !!</string>
+    <string name="viewbtnlabel">View/Modify</string>
+    <string name="createbtnlabel">Create New</string>
+    <string name="title_menu_list">Items</string>
+    <string name="title_menu_detail">Menu Detail</string>
 
 </resources>

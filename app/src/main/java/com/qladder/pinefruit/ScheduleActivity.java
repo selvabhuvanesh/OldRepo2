@@ -72,7 +72,7 @@ public class ScheduleActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-               /* Intent mainIntent = getIntent();
+               Intent mainIntent = getIntent();
                 Intent saveIntent = new Intent(ScheduleActivity.this,RegitserConfirm.class);
                 saveIntent.putExtra("service",mainIntent.getStringExtra("service"));
                 saveIntent.putExtra("facility",mainIntent.getStringExtra("facility"));
@@ -80,8 +80,9 @@ public class ScheduleActivity extends AppCompatActivity {
                 saveIntent.putExtra("fromtime",fromTimebtn.getText().toString());
                 saveIntent.putExtra("totime",toTimebtn.getText().toString());
                 saveIntent.putExtra("sdate",selectedDate);
-                startActivity(saveIntent);*/
-               ownerconfirmed("Saved Successfully");
+
+               //ownerconfirmed("Saved Successfully");
+                startActivity(saveIntent);
 
             }
         });

@@ -63,7 +63,7 @@ public class RegitserConfirm extends AppCompatActivity {
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
                 String appName = "PineFruit";
-                String message = "You can now book the consultation usinf Pine Fruit";
+                String message = "You can now book the consultation using Pine Fruit";
                 intent.putExtra(Intent.EXTRA_SUBJECT,appName);
                 intent.putExtra(Intent.EXTRA_TEXT,message);
                 startActivity(Intent.createChooser(intent,"Share Using"));

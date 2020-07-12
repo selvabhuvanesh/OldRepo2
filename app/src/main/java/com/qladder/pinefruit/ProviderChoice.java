@@ -22,16 +22,16 @@ Button viewbtn;
         createNewbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent newIntent = new Intent(ProviderChoice.this,MainActivity.class);
-                startActivity(newIntent);
+               Intent newIntent = new Intent(ProviderChoice.this,MainActivity.class);
+               startActivity(newIntent);
             }
         });
 
         viewbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent viewIntent = new Intent(ProviderChoice.this,MenuListActivity.class);
-                startActivity(viewIntent);
+               // Intent viewIntent = new Intent(ProviderChoice.this,MenuListActivity.class);
+               // startActivity(view);
             }
         });
 

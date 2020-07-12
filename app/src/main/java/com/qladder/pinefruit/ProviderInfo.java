@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class MainActivity extends AppCompatActivity {
+public class ProviderInfo extends AppCompatActivity {
 Button proceed;
 EditText facility;
 EditText provider;
@@ -27,7 +27,7 @@ EditText service;
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent proceedIntent = new Intent(MainActivity.this,ScheduleActivity.class);
+                Intent proceedIntent = new Intent(ProviderInfo.this,ScheduleActivity.class);
                 proceedIntent.putExtra("facility",facility.getText().toString());
                 proceedIntent.putExtra("service",service.getText().toString());
                 proceedIntent.putExtra("provider",provider.getText().toString());

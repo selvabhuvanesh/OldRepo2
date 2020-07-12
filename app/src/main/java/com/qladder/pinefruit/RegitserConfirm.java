@@ -3,18 +3,10 @@ package com.qladder.pinefruit;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-import android.hardware.SensorDirectChannel;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.ParcelFormatException;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.io.File;
 
 public class RegitserConfirm extends AppCompatActivity {
     Button modifybtn;
@@ -52,7 +44,7 @@ public class RegitserConfirm extends AppCompatActivity {
         modifybtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent modifyIntent = new Intent(RegitserConfirm.this, MainActivity.class);
+                Intent modifyIntent = new Intent(RegitserConfirm.this, ProviderInfo.class);
                 startActivity(modifyIntent);
             }
         });

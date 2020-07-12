@@ -22,7 +22,7 @@ Button viewbtn;
         createNewbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               Intent newIntent = new Intent(ProviderChoice.this,MainActivity.class);
+               Intent newIntent = new Intent(ProviderChoice.this, ProviderInfo.class);
                startActivity(newIntent);
             }
         });
@@ -30,7 +30,7 @@ Button viewbtn;
         viewbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent viewIntent = new Intent(ProviderChoice.this,SessionListListActivity.class);
+                Intent viewIntent = new Intent(ProviderChoice.this,SessionList.class);
                 startActivity(viewIntent);
             }
         });

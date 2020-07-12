@@ -4,8 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
@@ -47,6 +49,8 @@ public class ScheduleActivity extends AppCompatActivity {
             public void onClick(View view) {
                //Dialog fromDialog = new Dialog(ScheduleActivity.this);
                 showTimePickerDialog(view);
+
+
             }
         });
 
@@ -68,7 +72,7 @@ public class ScheduleActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent mainIntent = getIntent();
+               /* Intent mainIntent = getIntent();
                 Intent saveIntent = new Intent(ScheduleActivity.this,RegitserConfirm.class);
                 saveIntent.putExtra("service",mainIntent.getStringExtra("service"));
                 saveIntent.putExtra("facility",mainIntent.getStringExtra("facility"));
@@ -76,7 +80,8 @@ public class ScheduleActivity extends AppCompatActivity {
                 saveIntent.putExtra("fromtime",fromTimebtn.getText().toString());
                 saveIntent.putExtra("totime",toTimebtn.getText().toString());
                 saveIntent.putExtra("sdate",selectedDate);
-                startActivity(saveIntent);
+                startActivity(saveIntent);*/
+               ownerconfirmed("Saved Successfully");
 
             }
         });
@@ -85,10 +90,17 @@ public class ScheduleActivity extends AppCompatActivity {
         publishbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent confirmIntent = new Intent(ScheduleActivity.this,RegitserConfirm.class);
-                //startActivity(confirmIntent);
-                            }
+                if(true) {
+                   //ownerconfirmed("Confirm to Proceed?");
+                   Intent confirmIntent = new Intent(ScheduleActivity.this,RegitserConfirm.class);
+                   startActivity(confirmIntent);
+                }
+                else{
+                    // Provide the code on what needs to be done if user cancels confirmation
+                }
+                }
         });
+
 
         sdate.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
@@ -97,9 +109,25 @@ public class ScheduleActivity extends AppCompatActivity {
                 //Toast.makeText(ScheduleActivity.this,"Day is :"+sdate.getWeekDayTextAppearance(),Toast.LENGTH_LONG).show();
                 selectedDate = new Date(i,i1,i2);
 
+
             }
+
+
         });
 
+
+
+    }
+
+    protected boolean ownerconfirmed(String msg){
+
+        new AlertDialog.Builder(ScheduleActivity.this)
+                .setTitle("Pine Confirm")
+                .setMessage(msg)
+                .setPositiveButton(android.R.string.ok,null)
+                //.setNegativeButton(android.R.string.cancel,null)
+                .show();
+            return true;
     }
 
     @Override
@@ -136,7 +164,6 @@ public class ScheduleActivity extends AppCompatActivity {
 
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             // Do something with the time chosen by the user
-
 
 
         }

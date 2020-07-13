@@ -22,6 +22,8 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.time.Month;
 import java.util.Calendar;
 
 public class ScheduleActivity<TimePickerFragment> extends AppCompatActivity {
@@ -31,7 +33,7 @@ public class ScheduleActivity<TimePickerFragment> extends AppCompatActivity {
     Button savebtn;
     Button publishbtn;
     CalendarView sdate;
-    Date selectedDate;
+    String selectedDate;
     static int fromHour;
     static int toHour;
     static int frommin;
@@ -43,7 +45,8 @@ public class ScheduleActivity<TimePickerFragment> extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
 
-        fromTimebtn =(Button) findViewById(R.id.fromtime);
+
+        fromTimebtn = (Button) findViewById(R.id.fromtime);
         toTimebtn = (Button) findViewById(R.id.totime);
         savebtn = (Button) findViewById(R.id.save);
         publishbtn = (Button) findViewById(R.id.publish);
@@ -55,9 +58,8 @@ public class ScheduleActivity<TimePickerFragment> extends AppCompatActivity {
         fromTimebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               //Dialog fromDialog = new Dialog(ScheduleActivity.this);
-
-
+                //Dialog fromDialog = new Dialog(ScheduleActivity.this);
+                showTimePickerDialog(view);
 
 
             }
@@ -68,7 +70,10 @@ public class ScheduleActivity<TimePickerFragment> extends AppCompatActivity {
         toTimebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //showTimePickerDialog(view);
+                showTimePickerDialog(view);
+
+
+
             }
         });
 
@@ -81,7 +86,7 @@ public class ScheduleActivity<TimePickerFragment> extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-            Toast.makeText(ScheduleActivity.this,"Saved Successfully",Toast.LENGTH_LONG).show();
+                Toast.makeText(ScheduleActivity.this, "Saved Successfully", Toast.LENGTH_LONG).show();
 
 
             }
@@ -93,15 +98,15 @@ public class ScheduleActivity<TimePickerFragment> extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent mainIntent = getIntent();
-                Intent confirmIntent = new Intent(ScheduleActivity.this,RegitserConfirm.class);
-                confirmIntent.putExtra("service",mainIntent.getStringExtra("service"));
-                confirmIntent.putExtra("facility",mainIntent.getStringExtra("facility"));
-                confirmIntent.putExtra("provider",mainIntent.getStringExtra("provider"));
-                confirmIntent.putExtra("fromtime",fromTimebtn.getText().toString());
-                confirmIntent.putExtra("totime",toTimebtn.getText().toString());
-                confirmIntent.putExtra("sdate",selectedDate);
+                Intent confirmIntent = new Intent(ScheduleActivity.this, RegitserConfirm.class);
+                confirmIntent.putExtra("service", mainIntent.getStringExtra("service"));
+                confirmIntent.putExtra("facility", mainIntent.getStringExtra("facility"));
+                confirmIntent.putExtra("provider", mainIntent.getStringExtra("provider"));
+                confirmIntent.putExtra("fromtime", fromTimebtn.getText().toString());
+                confirmIntent.putExtra("totime", toTimebtn.getText().toString());
+                confirmIntent.putExtra("sdate", selectedDate);
                 startActivity(confirmIntent);
-                }
+            }
 
         });
 
@@ -109,10 +114,9 @@ public class ScheduleActivity<TimePickerFragment> extends AppCompatActivity {
         sdate.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
-                //Toast.makeText(ScheduleActivity.this,"Day is :"+i2,Toast.LENGTH_LONG).show();
+                Toast.makeText(ScheduleActivity.this, "Year:" + i + "\n Month: " + +i1 + "\n Day : " + i2, Toast.LENGTH_LONG).show();
                 //Toast.makeText(ScheduleActivity.this,"Day is :"+sdate.getWeekDayTextAppearance(),Toast.LENGTH_LONG).show();
-                //selectedDate = new Date(i,i1,i2);
-
+                selectedDate = i + "/" + i1 + "/" + i2;
 
             }
 
@@ -120,9 +124,7 @@ public class ScheduleActivity<TimePickerFragment> extends AppCompatActivity {
         });
 
 
-
     }
-
 
 
     @Override
@@ -136,16 +138,42 @@ public class ScheduleActivity<TimePickerFragment> extends AppCompatActivity {
         provider = homeIntent.getStringExtra("provider");
         facility = homeIntent.getStringExtra("facility");
 
-        Log.d("Resume Called ***** ",service);
-        Toast.makeText(this,"Service Name : "+ service+"\n Provider : "+provider+"\n Facility : "+facility,Toast.LENGTH_LONG).show();
+        Log.d("Resume Called ***** ", service);
+        Toast.makeText(this, "Service Name : " + service + "\n Provider : " + provider + "\n Facility : " + facility, Toast.LENGTH_LONG).show();
 
 
     }
 
 
+    public static class TimePickerFragment extends DialogFragment
+            implements TimePickerDialog.OnTimeSetListener {
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            // Use the current time as the default values for the picker
+            final Calendar c = Calendar.getInstance();
+            int hour = c.get(Calendar.HOUR_OF_DAY);
+            int minute = c.get(Calendar.MINUTE);
+
+            // Create a new instance of TimePickerDialog and return it
+            return new TimePickerDialog(getActivity(), this, hour, minute,
+                    DateFormat.is24HourFormat(getActivity()));
+        }
+
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+            // Do something with the time chosen by the user
 
 
+        }
+    }
 
+    public void showTimePickerDialog(View v) {
+        DialogFragment newFragment = new ScheduleActivity.TimePickerFragment();
+        newFragment.show(getSupportFragmentManager(), "timePicker");
+    }
 }
+
+
+
 
 

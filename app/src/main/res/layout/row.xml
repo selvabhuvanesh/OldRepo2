@@ -12,7 +12,8 @@
         android:layout_height="75dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/ammu"
+        android:src="@drawable/ammu"
+        android:background="@drawable/oval_button"
         android:id="@+id/image" />
 
     <LinearLayout
@@ -44,7 +45,8 @@
 
 <Button
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_height="25dp"
+    android:layout_marginLeft="20dp"
     android:text="Modify"
     android:id="@+id/changebtn"
     android:background="@drawable/oval_button"

@@ -114,9 +114,9 @@ public class ScheduleActivity<TimePickerFragment> extends AppCompatActivity {
         sdate.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
-                Toast.makeText(ScheduleActivity.this, "Year:" + i + "\n Month: " + +i1 + "\n Day : " + i2, Toast.LENGTH_LONG).show();
+                Toast.makeText(ScheduleActivity.this, "Year:" + i + "\n Month: " +(i1+1) + "\n Day : " + i2, Toast.LENGTH_LONG).show();
                 //Toast.makeText(ScheduleActivity.this,"Day is :"+sdate.getWeekDayTextAppearance(),Toast.LENGTH_LONG).show();
-                selectedDate = i + "/" + i1 + "/" + i2;
+                selectedDate = i + "/" + (i1+1) + "/" + i2;
 
             }
 

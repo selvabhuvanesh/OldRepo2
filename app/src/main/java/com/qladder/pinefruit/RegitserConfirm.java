@@ -55,7 +55,11 @@ public class RegitserConfirm extends AppCompatActivity {
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
                 String appName = "PineFruit";
-                String message = "You can now book the consultation using Pine Fruit";
+                //String message = "You can now book the consultation using Pine Fruit";
+                String message = "Hi, The below consultation is ready for booking. PLease use PineFruit app to book your slot\n"+"Facility : "+saveIntent.getStringExtra("facility")+
+                        "\n Service : "+saveIntent.getStringExtra("service")+
+                        "\n Provider : "+saveIntent.getStringExtra("provider")+
+                        "\n Date : "+saveIntent.getStringExtra("sdate");
                 intent.putExtra(Intent.EXTRA_SUBJECT,appName);
                 intent.putExtra(Intent.EXTRA_TEXT,message);
                 startActivity(Intent.createChooser(intent,"Share Using"));

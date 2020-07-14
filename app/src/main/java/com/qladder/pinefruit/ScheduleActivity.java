@@ -59,8 +59,22 @@ public class ScheduleActivity<TimePickerFragment> extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //Dialog fromDialog = new Dialog(ScheduleActivity.this);
-                showTimePickerDialog(view);
-
+                //showTimePickerDialog(view);
+                TimePickerDialog timePickerDialog = new TimePickerDialog(
+                        ScheduleActivity.this,
+                        new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker timePicker, int i, int i1) {
+                                fromHour = i;
+                                frommin = i1;
+                                Calendar calendar = Calendar.getInstance();
+                                calendar.set(0,0,0,fromHour,frommin);
+                                fromTimebtn.setText(DateFormat.format("hh:mm aa",calendar));
+                            }
+                        },12,0,false
+                );
+                timePickerDialog.updateTime(fromHour,frommin);
+                timePickerDialog.show();
 
             }
         });
@@ -70,7 +84,22 @@ public class ScheduleActivity<TimePickerFragment> extends AppCompatActivity {
         toTimebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showTimePickerDialog(view);
+                //showTimePickerDialog(view);
+                TimePickerDialog timePickerDialog = new TimePickerDialog(
+                        ScheduleActivity.this,
+                        new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker timePicker, int i, int i1) {
+                                toHour = i;
+                                tomin = i1;
+                                Calendar calendar = Calendar.getInstance();
+                                calendar.set(0,0,0,toHour,tomin);
+                                toTimebtn.setText(DateFormat.format("hh:mm aa",calendar));
+                            }
+                        },12,0,false
+                );
+                timePickerDialog.updateTime(toHour,tomin);
+                timePickerDialog.show();
 
 
 
@@ -145,7 +174,7 @@ public class ScheduleActivity<TimePickerFragment> extends AppCompatActivity {
     }
 
 
-    public static class TimePickerFragment extends DialogFragment
+    /*public static class TimePickerFragment extends DialogFragment
             implements TimePickerDialog.OnTimeSetListener {
 
         @Override
@@ -170,7 +199,7 @@ public class ScheduleActivity<TimePickerFragment> extends AppCompatActivity {
     public void showTimePickerDialog(View v) {
         DialogFragment newFragment = new ScheduleActivity.TimePickerFragment();
         newFragment.show(getSupportFragmentManager(), "timePicker");
-    }
+    }*/
 }
 
 

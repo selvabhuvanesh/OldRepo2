@@ -4,34 +4,15 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/pflogo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/pflogo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".SessionList"></activity>
-        <activity
-            android:name=".SessionListListActivity"
-            android:label="@string/title_sessionlist_list"
-            android:parentActivityName=".ProviderChoice"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.qladder.pinefruit.ProviderChoice" />
-        </activity>
-        <activity
-            android:name=".MenuListActivity"
-            android:label="@string/title_menu_list"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".MenuDetailActivity"
-            android:label="@string/title_menu_detail"
-            android:parentActivityName=".MenuListActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.qladder.pinefruit.MenuListActivity" />
-        </activity>
+
+
+
         <activity android:name=".ProviderChoice">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

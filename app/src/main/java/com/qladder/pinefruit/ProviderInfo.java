@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 public class ProviderInfo extends AppCompatActivity {
 Button proceed;
@@ -22,6 +24,13 @@ EditText service;
         facility = (EditText) findViewById(R.id.facility);
         service = (EditText) findViewById(R.id.Service);
         provider = (EditText) findViewById(R.id.Provider);
+
+        String categories[]={"Select Type","Restaurant","Hospital","Fitness Center", "Community"};
+        Spinner test = findViewById(R.id.proType);
+        ArrayAdapter<String> datadapter;
+        datadapter = new ArrayAdapter(this,android.R.layout.simple_dropdown_item_1line,categories);
+        test.setAdapter(datadapter);
+
 
 
         proceed.setOnClickListener(new View.OnClickListener() {

@@ -15,9 +15,13 @@ import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.DatePicker;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -52,6 +56,7 @@ public class ScheduleActivity<TimePickerFragment> extends AppCompatActivity {
         publishbtn = (Button) findViewById(R.id.publish);
         sdate = (CalendarView) findViewById(R.id.date);
 
+
         //Code while selecting From time to go hear
 
 
@@ -68,12 +73,12 @@ public class ScheduleActivity<TimePickerFragment> extends AppCompatActivity {
                                 fromHour = i;
                                 frommin = i1;
                                 Calendar calendar = Calendar.getInstance();
-                                calendar.set(0,0,0,fromHour,frommin);
-                                fromTimebtn.setText(DateFormat.format("hh:mm aa",calendar));
+                                calendar.set(0, 0, 0, fromHour, frommin);
+                                fromTimebtn.setText(DateFormat.format("hh:mm aa", calendar));
                             }
-                        },12,0,false
+                        }, 12, 0, false
                 );
-                timePickerDialog.updateTime(fromHour,frommin);
+                timePickerDialog.updateTime(fromHour, frommin);
                 timePickerDialog.show();
 
             }
@@ -93,14 +98,13 @@ public class ScheduleActivity<TimePickerFragment> extends AppCompatActivity {
                                 toHour = i;
                                 tomin = i1;
                                 Calendar calendar = Calendar.getInstance();
-                                calendar.set(0,0,0,toHour,tomin);
-                                toTimebtn.setText(DateFormat.format("hh:mm aa",calendar));
+                                calendar.set(0, 0, 0, toHour, tomin);
+                                toTimebtn.setText(DateFormat.format("hh:mm aa", calendar));
                             }
-                        },12,0,false
+                        }, 12, 0, false
                 );
-                timePickerDialog.updateTime(toHour,tomin);
+                timePickerDialog.updateTime(toHour, tomin);
                 timePickerDialog.show();
-
 
 
             }
@@ -143,9 +147,9 @@ public class ScheduleActivity<TimePickerFragment> extends AppCompatActivity {
         sdate.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
-                Toast.makeText(ScheduleActivity.this, "Year:" + i + "\n Month: " +(i1+1) + "\n Day : " + i2, Toast.LENGTH_LONG).show();
+                Toast.makeText(ScheduleActivity.this, "Year:" + i + "\n Month: " + (i1 + 1) + "\n Day : " + i2, Toast.LENGTH_LONG).show();
                 //Toast.makeText(ScheduleActivity.this,"Day is :"+sdate.getWeekDayTextAppearance(),Toast.LENGTH_LONG).show();
-                selectedDate = i + "/" + (i1+1) + "/" + i2;
+                selectedDate = i + "/" + (i1 + 1) + "/" + i2;
 
             }
 
@@ -173,36 +177,4 @@ public class ScheduleActivity<TimePickerFragment> extends AppCompatActivity {
 
     }
 
-
-    /*public static class TimePickerFragment extends DialogFragment
-            implements TimePickerDialog.OnTimeSetListener {
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            // Use the current time as the default values for the picker
-            final Calendar c = Calendar.getInstance();
-            int hour = c.get(Calendar.HOUR_OF_DAY);
-            int minute = c.get(Calendar.MINUTE);
-
-            // Create a new instance of TimePickerDialog and return it
-            return new TimePickerDialog(getActivity(), this, hour, minute,
-                    DateFormat.is24HourFormat(getActivity()));
-        }
-
-        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            // Do something with the time chosen by the user
-
-
-        }
-    }
-
-    public void showTimePickerDialog(View v) {
-        DialogFragment newFragment = new ScheduleActivity.TimePickerFragment();
-        newFragment.show(getSupportFragmentManager(), "timePicker");
-    }*/
 }
-
-
-
-
-

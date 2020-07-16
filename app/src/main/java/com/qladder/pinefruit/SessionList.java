@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -21,6 +22,7 @@ Button changebtn;
 
             Intent changeIntent = new Intent(SessionList.this, ProviderInfo.class);
             startActivity(changeIntent);
+            Log.d("sssssssssssssss------>","sdfsdfsdf");
         }
     });
 

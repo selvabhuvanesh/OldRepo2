@@ -79,4 +79,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/navbar" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

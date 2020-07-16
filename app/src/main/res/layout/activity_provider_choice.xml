@@ -11,10 +11,10 @@
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_marginTop="100dp"
+        android:foreground="@drawable/ic_access_time_black_24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@drawable/ic_access_time_black_24dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/viewbtn"
@@ -44,4 +44,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewbtn" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/navbar" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

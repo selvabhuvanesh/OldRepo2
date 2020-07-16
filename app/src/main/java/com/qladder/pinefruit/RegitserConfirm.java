@@ -63,8 +63,7 @@ public class RegitserConfirm extends AppCompatActivity {
                         "\n Provider : "+saveIntent.getStringExtra("provider")+
                         "\n Date : "+saveIntent.getStringExtra("sdate")+
                         "\n From Time : " + saveIntent.getStringExtra("fromtime")+
-                        "\n To Time : " + saveIntent.getStringExtra("totime")+
-                        "\n http://www.google.com";
+                        "\n To Time : " + saveIntent.getStringExtra("totime");
 
                 intent.putExtra(Intent.EXTRA_SUBJECT,appName);
                 intent.putExtra(Intent.EXTRA_TEXT,message);

@@ -125,7 +125,7 @@ public class ScheduleActivity<TimePickerFragment> extends AppCompatActivity {
             }
         });
 
-        //method for onclick of publish button
+        //method for onclick of publish or share  button
         publishbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -139,6 +139,11 @@ public class ScheduleActivity<TimePickerFragment> extends AppCompatActivity {
                 confirmIntent.putExtra("totime", toTimebtn.getText().toString());
                 confirmIntent.putExtra("sdate", selectedDate);
                 startActivity(confirmIntent);
+
+                /*confirmIntent.putExtra("Latitude ", mainIntent.getStringExtra("Latitude"));
+                confirmIntent.putExtra("Longitude ", mainIntent.getStringExtra("Longitude"));
+                confirmIntent.putExtra("AddressLine ", mainIntent.getStringExtra("AddressLine"));
+                confirmIntent.putExtra("Location ", mainIntent.getStringExtra("Location"));*/
             }
 
         });
@@ -147,8 +152,7 @@ public class ScheduleActivity<TimePickerFragment> extends AppCompatActivity {
         sdate.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
-                Toast.makeText(ScheduleActivity.this, "Year:" + i + "\n Month: " + (i1 + 1) + "\n Day : " + i2, Toast.LENGTH_LONG).show();
-                //Toast.makeText(ScheduleActivity.this,"Day is :"+sdate.getWeekDayTextAppearance(),Toast.LENGTH_LONG).show();
+                //Setting the date based on selection
                 selectedDate = i + "/" + (i1 + 1) + "/" + i2;
 
             }
@@ -163,7 +167,7 @@ public class ScheduleActivity<TimePickerFragment> extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        String facility;
+        /*String facility;
         String provider;
         String service;
         Intent homeIntent = getIntent();
@@ -171,9 +175,9 @@ public class ScheduleActivity<TimePickerFragment> extends AppCompatActivity {
         provider = homeIntent.getStringExtra("provider");
         facility = homeIntent.getStringExtra("facility");
 
-        Log.d("Resume Called ***** ", service);
-        Toast.makeText(this, "Service Name : " + service + "\n Provider : " + provider + "\n Facility : " + facility, Toast.LENGTH_LONG).show();
-
+        //Log.d("Resume Called ***** ", service);
+        //Toast.makeText(this, "Service Name : " + service + "\n Provider : " + provider + "\n Facility : " + facility, Toast.LENGTH_LONG).show();
+        */
 
     }
 

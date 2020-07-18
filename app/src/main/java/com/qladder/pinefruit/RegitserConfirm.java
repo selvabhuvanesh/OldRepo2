@@ -39,6 +39,7 @@ public class RegitserConfirm extends AppCompatActivity {
         fromTime.setText("From Time : " + saveIntent.getStringExtra("fromtime"));
         toTime.setText("To Time : " + saveIntent.getStringExtra("totime"));
         sDate.setText("Date :  " + saveIntent.getStringExtra("sdate"));
+       // sDate.setText("Lat :  " + saveIntent.getStringExtra("Latitude"));
 
 
         modifybtn.setOnClickListener(new View.OnClickListener() {

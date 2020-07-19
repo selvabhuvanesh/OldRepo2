@@ -12,9 +12,10 @@
         android:layout_height="75dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
+        
         android:src="@drawable/ammu"
 
-        android:id="@+id/image" />
+        android:id="@+id/providerimage" />
 
     <LinearLayout
     android:layout_width="match_parent"

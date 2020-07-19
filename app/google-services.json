@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "288274127727",
+    "firebase_url": "https://qmanager-fe5d7.firebaseio.com",
+    "project_id": "qmanager-fe5d7",
+    "storage_bucket": "qmanager-fe5d7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:288274127727:android:0c8575c2f31c0c774da69a",
+        "android_client_info": {
+          "package_name": "com.qladder.pinefruit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "288274127727-mm5pspj85looo2ujesqn5l1lsrv4ehh5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.qladder.pinefruit",
+            "certificate_hash": "b38496f2a051da722c4674b2557084916eec2ada"
+          }
+        },
+        {
+          "client_id": "288274127727-7o1enbevlarc7prh3tj06psiq41ed84p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9Dldq283JBJhf8gdsK7ik_qRIssbyyCk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "288274127727-7o1enbevlarc7prh3tj06psiq41ed84p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

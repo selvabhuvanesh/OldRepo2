@@ -12,6 +12,8 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -28,6 +30,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.IOException;
 import java.util.List;
@@ -39,6 +42,10 @@ EditText facility;
 EditText provider;
 EditText service;
 FusedLocationProviderClient mFusedLocationProviderClient;
+Intent proceedToScheduleIntent;
+double Latitude;
+double Longitude;
+String Locality;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +56,10 @@ FusedLocationProviderClient mFusedLocationProviderClient;
         facility = (EditText) findViewById(R.id.facility);
         service = (EditText) findViewById(R.id.Service);
         provider = (EditText) findViewById(R.id.Provider);
+        BottomNavigationView botnav = findViewById(R.id.bottomNavigationView);
+        botnav.setOnNavigationItemSelectedListener(navListener);
+
+
 
         Toast.makeText(ProviderInfo.this,"Toast Top",Toast.LENGTH_LONG).show();
 
@@ -58,14 +69,18 @@ FusedLocationProviderClient mFusedLocationProviderClient;
         ArrayAdapter<String> datadapter;
         datadapter = new ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, categories);
         test.setAdapter(datadapter);
+        proceedToScheduleIntent = new Intent(ProviderInfo.this, ScheduleActivity.class);
 
         //get the current location of the provider---------Starts Here--------------------------
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(ProviderInfo.this);
 
         Toast.makeText(ProviderInfo.this,"Toast 1",Toast.LENGTH_LONG).show();
 
-        if (ActivityCompat.checkSelfPermission(ProviderInfo.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
-        {
+       if (ActivityCompat.checkSelfPermission(ProviderInfo.this,
+                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+        && ActivityCompat.checkSelfPermission(ProviderInfo.this,
+                Manifest.permission.INTERNET) == PackageManager.PERMISSION_GRANTED)
+            {
             mFusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
                 @Override
                 public void onComplete(@NonNull Task<Location> task) {
@@ -74,9 +89,13 @@ FusedLocationProviderClient mFusedLocationProviderClient;
                     {
                         try {
                             Geocoder geo = new Geocoder(ProviderInfo.this, Locale.getDefault());
-
                             List<Address> addresses = geo.getFromLocation(loc.getLatitude(), loc.getLongitude(), 1);
-                            Toast.makeText(ProviderInfo.this, "inside toast value"+addresses.get(0).getLocality(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(ProviderInfo.this, "inside toast value"+addresses.get(0).getLongitude(), Toast.LENGTH_LONG).show();
+                            Latitude = addresses.get(0).getLatitude();
+                            Longitude = addresses.get(0).getLongitude();
+                            Locality = addresses.get(0).getLocality();
+
+
                         }catch (IOException e)
                         {
                             e.printStackTrace();
@@ -99,11 +118,19 @@ FusedLocationProviderClient mFusedLocationProviderClient;
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent proceedToScheduleIntent = new Intent(ProviderInfo.this, ScheduleActivity.class);
-                proceedToScheduleIntent.putExtra("facility", facility.getText().toString());
-                proceedToScheduleIntent.putExtra("service", service.getText().toString());
-                proceedToScheduleIntent.putExtra("provider", provider.getText().toString());
-                startActivity(proceedToScheduleIntent);
+
+                if(Latitude !=0) {
+                    proceedToScheduleIntent.putExtra("facility", facility.getText().toString());
+                    proceedToScheduleIntent.putExtra("service", service.getText().toString());
+                    proceedToScheduleIntent.putExtra("provider", provider.getText().toString());
+                    proceedToScheduleIntent.putExtra("Latitude", Latitude);
+                    proceedToScheduleIntent.putExtra("Longitude", Longitude);
+                    proceedToScheduleIntent.putExtra("Locality", Locality);
+                    startActivity(proceedToScheduleIntent);
+                }
+                else
+                {
+            Toast.makeText(ProviderInfo.this,"Location is null and is mandatory",Toast.LENGTH_LONG).show();                }
             }
         });
 
@@ -113,5 +140,14 @@ FusedLocationProviderClient mFusedLocationProviderClient;
     private void getLocation() {
 
     }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+                    return false;
+                }
+            };
 
 }

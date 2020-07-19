@@ -120,7 +120,8 @@ public class ScheduleActivity<TimePickerFragment> extends AppCompatActivity {
             public void onClick(View view) {
 
                 Toast.makeText(ScheduleActivity.this, "Saved Successfully", Toast.LENGTH_LONG).show();
-
+                Intent test = getIntent();
+                Toast.makeText(ScheduleActivity.this,"Vale of Location is : "+test.getStringExtra("Latitude"),Toast.LENGTH_LONG).show();
 
             }
         });

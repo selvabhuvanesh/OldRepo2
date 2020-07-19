@@ -10,8 +10,8 @@
         android:id="@+id/imageView"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_marginTop="100dp"
-        android:foreground="@drawable/ic_access_time_black_24dp"
+        android:layout_marginTop="60dp"
+        android:foreground="@mipmap/pflogo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -20,22 +20,26 @@
         android:id="@+id/viewbtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-         android:layout_marginTop="60dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginRight="60dp"
         android:background="@drawable/rounded_button"
+        android:text="@string/viewbtnlabel"
         android:textAlignment="center"
         android:textColor="@android:color/background_light"
-        android:text="@string/viewbtnlabel"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        tools:layout_editor_absoluteX="73dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <Button
         android:id="@+id/createbtn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="60dp"
         android:layout_marginRight="30dp"
         android:background="@drawable/rounded_button"
         android:text="@string/createbtnlabel"
@@ -46,6 +50,7 @@
         app:layout_constraintTop_toBottomOf="@+id/viewbtn" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         app:layout_constraintBottom_toBottomOf="parent"

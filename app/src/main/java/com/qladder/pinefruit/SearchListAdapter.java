@@ -44,7 +44,7 @@ public class SearchListAdapter extends ArrayAdapter <SessionObject> {
 
         sessionName.setText(sessionObject.getSessionName());
         sessionDetails.setText(sessionObject.getSessionDetails());
-        //image using only a standard image for test purpose.
+        //I am using only a standard image for test purpose.
         // this has to be replaced by
         // image array or initial or date or session id which i have to decide later
         imageView.setImageDrawable(mContext.getResources().getDrawable(sessionObject.getImage()));

@@ -26,11 +26,11 @@ public class RegitserConfirm extends AppCompatActivity {
         modifybtn = (Button) findViewById(R.id.modify);
         sharebtn = (Button) findViewById(R.id.share);
         providerName = (TextView) findViewById(R.id.providername);
-        facility = (TextView) findViewById(R.id.facility);
+        facility = (TextView) findViewById(R.id.facilityName);
         fromTime = (TextView) findViewById(R.id.fromtime);
         toTime = (TextView) findViewById(R.id.totime);
         sDate = (TextView) findViewById(R.id.date);
-        serviceName = (TextView) findViewById(R.id.service);
+        serviceName = (TextView) findViewById(R.id.serviceName);
 
         final Intent saveIntent = getIntent();
         facility.setText("Facility : " + saveIntent.getStringExtra("facility"));

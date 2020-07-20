@@ -44,6 +44,7 @@ public class ScheduleActivity<TimePickerFragment> extends AppCompatActivity {
     static int tomin;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -131,15 +132,42 @@ public class ScheduleActivity<TimePickerFragment> extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent mainIntent = getIntent();
-                Intent confirmIntent = new Intent(ScheduleActivity.this, RegitserConfirm.class);
-                confirmIntent.putExtra("service", mainIntent.getStringExtra("service"));
-                confirmIntent.putExtra("facility", mainIntent.getStringExtra("facility"));
-                confirmIntent.putExtra("provider", mainIntent.getStringExtra("provider"));
-                confirmIntent.putExtra("fromtime", fromTimebtn.getText().toString());
-                confirmIntent.putExtra("totime", toTimebtn.getText().toString());
-                confirmIntent.putExtra("sdate", selectedDate);
-                startActivity(confirmIntent);
+
+                String mservice = "\nService : "+getIntent().getStringExtra("service");
+                String mfacility = "Company : "+getIntent().getStringExtra("facility");
+                String mprovider = "\nProvider : "+getIntent().getStringExtra("provider");
+                String mfromtime = "\n From Time :"+fromTimebtn.getText().toString();
+                String mtotime = "\nTo Time :"+ toTimebtn.getText().toString();
+                String mdate = "\nDate : "+ selectedDate;
+
+                String sessionInfo = mfacility+mservice+mprovider+mdate+mfromtime+mtotime ;
+
+                AlertDialog confirmDialog;
+                confirmDialog = new AlertDialog.Builder(ScheduleActivity.this)
+                        .setTitle("Session Review")
+                        .setMessage(sessionInfo)
+                        .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Intent confirmIntent = new Intent(ScheduleActivity.this, RegitserConfirm.class);
+                                confirmIntent.putExtra("service", getIntent().getStringExtra("service"));
+                                confirmIntent.putExtra("facility", getIntent().getStringExtra("facility"));
+                                confirmIntent.putExtra("provider", getIntent().getStringExtra("provider"));
+                                confirmIntent.putExtra("fromtime", fromTimebtn.getText().toString());
+                                confirmIntent.putExtra("totime", toTimebtn.getText().toString());
+                                confirmIntent.putExtra("sdate", selectedDate);
+                                startActivity(confirmIntent);
+                            }
+                        })
+                        .setNegativeButton("Not Sure", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        })
+                        .show();
+
+
 
                 /*confirmIntent.putExtra("Latitude ", mainIntent.getStringExtra("Latitude"));
                 confirmIntent.putExtra("Longitude ", mainIntent.getStringExtra("Longitude"));
@@ -163,6 +191,8 @@ public class ScheduleActivity<TimePickerFragment> extends AppCompatActivity {
 
 
     }
+
+
 
 
     @Override

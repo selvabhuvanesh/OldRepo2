@@ -1,12 +1,12 @@
 package com.qladder.pinefruit;
 
-public class SessionObject {
+public class SessionInfo {
 
     int image;
     String sessionName;
     String sessionDetails;
 
-    public SessionObject(int image, String sessionName, String sessionDetails)
+    public SessionInfo(int image, String sessionName, String sessionDetails)
     {
         this.image = image;
         this.sessionName = sessionName;

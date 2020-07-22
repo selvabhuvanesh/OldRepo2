@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegitserConfirm">
+    android:background="#ccddff"
+    tools:context=".ProviderRegitserConfirmActivity">
 
     <TextView
         android:id="@+id/date"
@@ -25,7 +26,7 @@
         android:id="@+id/confirmlabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="30dp"
         android:text="@string/confrimlabel"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="30sp"
@@ -38,11 +39,14 @@
         android:id="@+id/modify"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
         android:background="@drawable/rounded_button"
+        android:gravity="center_vertical"
         android:text="Modify"
-        android:textAlignment="center"
-        android:textColor="@android:color/background_light"
+        android:drawableLeft="@drawable/ic_baseline_edit_24"
+        android:drawablePadding="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toStartOf="@+id/share"
         app:layout_constraintHorizontal_bias="0.353"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,13 +56,14 @@
         android:id="@+id/share"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
+       android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         android:background="@drawable/rounded_button"
+        android:gravity="center"
+        android:drawableLeft="@drawable/ic_baseline_share_24"
+        android:drawablePadding="10dp"
         android:text="Share"
-        android:textAlignment="center"
-        android:textColor="@android:color/background_light"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/modify"
         app:layout_constraintTop_toBottomOf="@+id/date" />
@@ -92,18 +97,20 @@
 
     <MultiAutoCompleteTextView
         android:id="@+id/pconfirmation"
-        android:layout_width="415dp"
-        android:layout_height="166dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:text="@string/booksuccess"
         android:textAlignment="center"
-        android:textColor="@color/design_default_color_primary"
-        android:textSize="25sp"
+        android:textColor="#003300"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/confirmlabel" />
+        app:layout_constraintTop_toBottomOf="@+id/confirmlabel"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center_horizontal" />
 
     <TextView
         android:id="@+id/providername"
@@ -147,5 +154,13 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fromtime" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="#fefefe"
+        app:menu="@menu/navbar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

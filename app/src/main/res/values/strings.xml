@@ -17,7 +17,7 @@
     <string name="confrimlabel">Service Confirmation</string>
     <string name="booksuccess">Success !!! Verify your service information and share to take bookings !!</string>
     <string name="viewbtnlabel">Manage Queue</string>
-    <string name="createbtnlabel">Create New + </string>
+    <string name="createbtnlabel">Create New</string>
     <string name="title_menu_list">Items</string>
     <string name="title_menu_detail">Menu Detail</string>
     <string name="title_sessionlist_list">Sessions</string>
@@ -31,6 +31,8 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="choose_location">Choose Location</string>
+    <string name="service_creation">Service Creation</string>
 
 
 </resources>

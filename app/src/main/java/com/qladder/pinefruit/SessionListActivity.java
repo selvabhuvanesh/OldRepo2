@@ -1,16 +1,16 @@
 package com.qladder.pinefruit;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.widget.ListView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SessionList extends AppCompatActivity {
+public class SessionListActivity extends AppCompatActivity {
 
-    List<SessionObject> mSessionObjectList;
+    List<SessionInfo> mSessionInfoList;
     ListView mListView;
     //int image = 0;
     String sesionName[] = {"S_1","S_2","S_3","S_4","S_5","S_6","S_7","S_8","S_9","S_10","S_11"};
@@ -20,19 +20,19 @@ public class SessionList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_session_list);
 
-        mSessionObjectList = new ArrayList<>();
+        mSessionInfoList = new ArrayList<>();
 
 
         int index=0;
 
         while (index<=10)
         {
-            mSessionObjectList.add(new SessionObject(R.drawable.ammu,sesionName[index],sessionDetails[index]));
+            mSessionInfoList.add(new SessionInfo(R.drawable.ammu,sesionName[index],sessionDetails[index]));
 
               index++;
         }
         mListView = (ListView) findViewById(R.id.listview);
-        SearchListAdapter adapter = new SearchListAdapter(this,R.layout.row, mSessionObjectList);
+        SearchListAdapter adapter = new SearchListAdapter(this,R.layout.row, mSessionInfoList);
         mListView.setAdapter(adapter);
 
 

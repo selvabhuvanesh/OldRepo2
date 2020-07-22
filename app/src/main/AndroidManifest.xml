@@ -18,17 +18,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".ProviderChoice">
+        <activity android:name=".ProviderChoiceActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegitserConfirm" />
-        <activity android:name=".ScheduleActivity" />
-        <activity android:name=".ProviderInfo" />
-        <activity android:name=".SessionList" />
+        <activity android:name=".ProviderRegitserConfirmActivity" />
+        <activity android:name=".SessionScheduleActivity" />
+        <activity android:name=".ProviderInfoActivity" />
+        <activity android:name=".SessionListActivity" />
     </application>
 
 </manifest>

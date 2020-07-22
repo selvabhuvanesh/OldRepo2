@@ -1,7 +1,6 @@
 package com.qladder.pinefruit;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,15 +13,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.List;
-import java.util.TooManyListenersException;
 
-public class SearchListAdapter extends ArrayAdapter <SessionObject> {
+public class SearchListAdapter extends ArrayAdapter <SessionInfo> {
 
     Context mContext;
     int mresource;
-    List<SessionObject> mSessionList;
+    List<SessionInfo> mSessionList;
 
-    public SearchListAdapter(Context context, int resource, List<SessionObject> sessionList) {
+    public SearchListAdapter(Context context, int resource, List<SessionInfo> sessionList) {
         super(context, resource, sessionList);
         this.mContext = context;
         this.mresource = resource;
@@ -40,19 +38,19 @@ public class SearchListAdapter extends ArrayAdapter <SessionObject> {
         final TextView sessionDetails = view.findViewById(R.id.sessionDetails);
         ImageView imageView = view.findViewById(R.id.providerimage);
 
-        final SessionObject sessionObject = mSessionList.get(position);
+        final SessionInfo sessionInfo = mSessionList.get(position);
 
-        sessionName.setText(sessionObject.getSessionName());
-        sessionDetails.setText(sessionObject.getSessionDetails());
+        sessionName.setText(sessionInfo.getSessionName());
+        sessionDetails.setText(sessionInfo.getSessionDetails());
         //I am using only a standard image for test purpose.
         // this has to be replaced by
         // image array or initial or date or session id which i have to decide later
-        imageView.setImageDrawable(mContext.getResources().getDrawable(sessionObject.getImage()));
+        imageView.setImageDrawable(mContext.getResources().getDrawable(sessionInfo.getImage()));
 
         view.findViewById(R.id.changebtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            Toast.makeText(getContext(),"You clicked : "+sessionObject.sessionName,Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(),"You clicked : "+ sessionInfo.sessionName,Toast.LENGTH_LONG).show();
             }
         });
         return view;

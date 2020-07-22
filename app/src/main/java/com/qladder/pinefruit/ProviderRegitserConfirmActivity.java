@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class RegitserConfirm extends AppCompatActivity {
+public class ProviderRegitserConfirmActivity extends AppCompatActivity {
     Button modifybtn;
     Button sharebtn;
     TextView providerName;
@@ -45,7 +45,7 @@ public class RegitserConfirm extends AppCompatActivity {
         modifybtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent modifyIntent = new Intent(RegitserConfirm.this, ProviderInfo.class);
+                Intent modifyIntent = new Intent(ProviderRegitserConfirmActivity.this, ProviderInfoActivity.class);
                 startActivity(modifyIntent);
             }
         });

@@ -7,7 +7,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class ProviderChoice extends AppCompatActivity {
+public class ProviderChoiceActivity extends AppCompatActivity {
 Button createNewbtn;
 Button viewbtn;
     @Override
@@ -23,7 +23,7 @@ Button viewbtn;
         createNewbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               Intent newIntent = new Intent(ProviderChoice.this, ProviderInfo.class);
+               Intent newIntent = new Intent(ProviderChoiceActivity.this, ProviderInfoActivity.class);
                startActivity(newIntent);
             }
         });
@@ -31,7 +31,7 @@ Button viewbtn;
         viewbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent viewIntent = new Intent(ProviderChoice.this,SessionList.class);
+                Intent viewIntent = new Intent(ProviderChoiceActivity.this, SessionListActivity.class);
                 startActivity(viewIntent);
             }
         });

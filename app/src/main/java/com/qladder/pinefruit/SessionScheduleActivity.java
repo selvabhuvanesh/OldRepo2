@@ -1,36 +1,23 @@
 package com.qladder.pinefruit;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
-
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
-import android.widget.DatePicker;
-import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.time.Month;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.Calendar;
 
-public class ScheduleActivity<TimePickerFragment> extends AppCompatActivity {
+public class SessionScheduleActivity<TimePickerFragment> extends AppCompatActivity {
 
     Button fromTimebtn;
     Button toTimebtn;
@@ -67,7 +54,7 @@ public class ScheduleActivity<TimePickerFragment> extends AppCompatActivity {
                 //Dialog fromDialog = new Dialog(ScheduleActivity.this);
                 //showTimePickerDialog(view);
                 TimePickerDialog timePickerDialog = new TimePickerDialog(
-                        ScheduleActivity.this,
+                        SessionScheduleActivity.this,
                         new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker timePicker, int i, int i1) {
@@ -92,7 +79,7 @@ public class ScheduleActivity<TimePickerFragment> extends AppCompatActivity {
             public void onClick(View view) {
                 //showTimePickerDialog(view);
                 TimePickerDialog timePickerDialog = new TimePickerDialog(
-                        ScheduleActivity.this,
+                        SessionScheduleActivity.this,
                         new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker timePicker, int i, int i1) {
@@ -120,9 +107,9 @@ public class ScheduleActivity<TimePickerFragment> extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Toast.makeText(ScheduleActivity.this, "Saved Successfully", Toast.LENGTH_LONG).show();
+                Toast.makeText(SessionScheduleActivity.this, "Saved Successfully", Toast.LENGTH_LONG).show();
                 Intent test = getIntent();
-                Toast.makeText(ScheduleActivity.this,"Vale of Location is : "+test.getStringExtra("Latitude"),Toast.LENGTH_LONG).show();
+                Toast.makeText(SessionScheduleActivity.this,"Vale of Location is : "+test.getStringExtra("Latitude"),Toast.LENGTH_LONG).show();
 
             }
         });
@@ -143,13 +130,13 @@ public class ScheduleActivity<TimePickerFragment> extends AppCompatActivity {
                 String sessionInfo = mfacility+mservice+mprovider+mdate+mfromtime+mtotime ;
 
                 AlertDialog confirmDialog;
-                confirmDialog = new AlertDialog.Builder(ScheduleActivity.this)
+                confirmDialog = new AlertDialog.Builder(SessionScheduleActivity.this)
                         .setTitle("Session Review")
                         .setMessage(sessionInfo)
                         .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                Intent confirmIntent = new Intent(ScheduleActivity.this, RegitserConfirm.class);
+                                Intent confirmIntent = new Intent(SessionScheduleActivity.this, ProviderRegitserConfirmActivity.class);
                                 confirmIntent.putExtra("service", getIntent().getStringExtra("service"));
                                 confirmIntent.putExtra("facility", getIntent().getStringExtra("facility"));
                                 confirmIntent.putExtra("provider", getIntent().getStringExtra("provider"));

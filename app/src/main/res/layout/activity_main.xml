@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProviderInfo">
+    android:background="#ccddff"
+        tools:context=".ProviderInfoActivity">
 
     <EditText
         android:id="@+id/facilityName"
@@ -15,9 +16,14 @@
         android:ems="10"
         android:hint="@string/facility_hint"
         android:inputType="text"
+        android:textAlignment="center"
+        android:drawableLeft="@drawable/ic_baseline_business_24"
+        android:drawablePadding="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/proType" />
+        app:layout_constraintTop_toBottomOf="@+id/proType"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center_horizontal" />
 
     <EditText
         android:id="@+id/providerName"
@@ -27,9 +33,14 @@
         android:ems="10"
         android:hint="@string/provider_hint"
         android:inputType="text"
+        android:drawableLeft="@drawable/ic_baseline_person_24"
+        android:drawablePadding="20dp"
         app:layout_constraintEnd_toEndOf="parent"
+        android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/serviceName" />
+        app:layout_constraintTop_toBottomOf="@+id/serviceName"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center_horizontal" />
 
     <EditText
         android:id="@+id/serviceName"
@@ -38,17 +49,20 @@
         android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="@string/service_hint"
+        android:drawableLeft="@drawable/ic_baseline_notes_24"
         android:inputType="text"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/choseLocation" />
+        app:layout_constraintTop_toBottomOf="@+id/choseLocation"
+        android:gravity="center_horizontal" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Service Creation"
+        android:text="@string/service_creation"
         android:textColor="@color/colorPrimary"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -58,12 +72,15 @@
 
     <Button
         android:id="@+id/proceed"
-        android:layout_width="147dp"
-        android:layout_height="0dp"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
         android:background="@drawable/rounded_button"
         android:text="@string/proceed"
-        android:textColor="@android:color/background_light"
+        android:drawableLeft="@drawable/ic_baseline_schedule_24"
+        android:drawablePadding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/providerName"
@@ -74,24 +91,36 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center_horizontal" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:background="#fefefe"
         app:menu="@menu/navbar" />
 
     <Button
         android:id="@+id/choseLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:drawableLeft="@drawable/ic_baseline_add_location_24"
+        android:drawablePadding="10dp"
         android:layout_marginTop="5dp"
-        android:text="Choose Location"
+        android:text="@string/choose_location"
         app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/rounded_button"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/facilityName" />
+        app:layout_constraintTop_toBottomOf="@+id/facilityName"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp
+" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,7 +5,7 @@
     <string name="service_hint">Service Name</string>
     <string name="service_label">Service Name</string>
     <string name="provider">Provider</string>
-    <string name="provider_hint">Provider/Owner Name</string>
+    <string name="provider_hint">Provider Name</string>
     <string name="From_time">Start Time</string>
     <string name="To_time">End Time</string>
     <string name="publish">Confirm</string>

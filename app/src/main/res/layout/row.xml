@@ -3,16 +3,15 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="10dp"
-    android:background="@android:color/white">
+    android:layout_marginTop="3dp"
+    android:background="#ccddff">
 
 
 
     <ImageView
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_gravity="center_vertical"
         android:src="@drawable/ammu"
         android:id="@+id/providerimage">
     </ImageView>
@@ -23,36 +22,37 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-        android:layout_marginTop="10dp">
+        android:paddingBottom="10dp">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
         android:text="Service Name"
-        android:textColor="@color/colorPrimary"
         android:textStyle="bold"
+        android:maxLines="1"
         android:textSize="20sp"
         android:id="@+id/sessionName"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:paddingTop="5dp"
-            android:text="Date, From Time, To Time, Provider Name, Status, Number of registrations etc., will be displayed here"
+            android:maxLines="2"
+            android:text=" key details, will be displayed here"
             android:textColor="@android:color/darker_gray"
             android:textSize="15dp"
             android:id="@+id/sessionDetails"/>
 
 <Button
     android:layout_width="wrap_content"
-    android:layout_height="25dp"
-    android:layout_marginLeft="20dp"
+    android:layout_height="30dp"
+    android:layout_marginTop="5dp"
+    android:paddingRight="10dp"
+    android:paddingLeft="10dp"
     android:text="Modify"
     android:id="@+id/changebtn"
-    android:background="@drawable/oval_button"
-    android:textColor="@android:color/white"/>
+    android:background="@drawable/rounded_button"
+    android:drawableLeft="@drawable/ic_baseline_edit_24"
+    android:drawablePadding="5dp"/>
 
     </LinearLayout>
 

@@ -1,11 +1,8 @@
 package com.qladder.pinefruit;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
-import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -14,19 +11,14 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -51,7 +43,7 @@ public class ProviderInfoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_provider_info);
 
         proceed = (Button) findViewById(R.id.proceed);
         facility = (EditText) findViewById(R.id.facilityName);
@@ -67,7 +59,7 @@ public class ProviderInfoActivity extends AppCompatActivity {
         providerTypeSpinner.setAdapter(datadapter);
 
 
-        //This is to open the map and select the location that user wants
+        //This is to open the map and select the location of the provider. this captures Lat, Long and the Locality
         choseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,48 +77,10 @@ public class ProviderInfoActivity extends AppCompatActivity {
 
 
 
-        proceedToScheduleIntent = new Intent(ProviderInfoActivity.this, SessionScheduleActivity.class);
 
         //get the current location of the provider---------Starts Here--------------------------
-        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(ProviderInfoActivity.this);
 
-
-       if (ActivityCompat.checkSelfPermission(ProviderInfoActivity.this,
-                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-            {
-                ActivityCompat.requestPermissions(ProviderInfoActivity.this
-                        , new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
-
-        } else {
-           mFusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
-               @Override
-               public void onComplete(@NonNull Task<Location> task) {
-                   Location loc = task.getResult();
-                   if (loc != null)
-                   {
-                       try {
-                           Geocoder geo = new Geocoder(ProviderInfoActivity.this, Locale.getDefault());
-                           List<Address> addresses = geo.getFromLocation(loc.getLatitude(), loc.getLongitude(), 1);
-                         //  Toast.makeText(ProviderInfoActivity.this, "Your Location is\n" +
-                          //         "------------------------------\n"+addresses.get(0).getLocality(), LENGTH_LONG).show();
-                           Latitude = addresses.get(0).getLatitude();
-                           Longitude = addresses.get(0).getLongitude();
-                           Locality = addresses.get(0).getLocality();
-
-
-                       }catch (IOException e)
-                       {
-                           e.printStackTrace();
-                       }
-
-
-                   }
-               }
-           });
-        }
-
-
-        //get the current location of the provider---------End Here--------------------------
+        proceedToScheduleIntent = new Intent(ProviderInfoActivity.this, SessionScheduleActivity.class);
 
 
 
@@ -140,7 +94,7 @@ public class ProviderInfoActivity extends AppCompatActivity {
                 String mService = service.getText().toString();
                 String mProvider = provider.getText().toString();
 
-                    if (!(mFacility.trim().isEmpty() || mService.trim().isEmpty()))
+                    if (!(mFacility.trim().isEmpty() || mService.trim().isEmpty() ))
                     {
                         FirebaseDatabase database = FirebaseDatabase.getInstance();
                         DatabaseReference myRef = database.getReference("ManObject");
@@ -172,9 +126,7 @@ public class ProviderInfoActivity extends AppCompatActivity {
 
     }
 
-    private void getLocation() {
 
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -183,16 +135,19 @@ public class ProviderInfoActivity extends AppCompatActivity {
         {if(resultCode == RESULT_OK)
             {
                 Place  place = PlacePicker.getPlace(data,this);
-                StringBuilder stringBuilder = new StringBuilder();
-                String latitude = String.valueOf(place.getLatLng().latitude).toString();
-                String longitude = String.valueOf(place.getLatLng().longitude).toString();
-                //Locale address = place.getLocale();
-                stringBuilder.append("Latitude -> "+latitude);
-                stringBuilder.append("\n Longitude -> "+longitude);
-                facility.setText("******");
-
-
+                Latitude = place.getLatLng().latitude;
+                Longitude = place.getLatLng().longitude;
+                try {
+                    Geocoder geo = new Geocoder(ProviderInfoActivity.this, Locale.getDefault());
+                    List<Address> addresses = geo.getFromLocation(Latitude, Longitude, 1);
+                    Locality = addresses.get(0).getLocality();
+                    Toast.makeText(this,"Location is"+Locality,Toast.LENGTH_LONG).show();
+                }catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
             }
+
         }
     }
 }

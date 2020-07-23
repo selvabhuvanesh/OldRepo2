@@ -12,7 +12,7 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_gravity="center_vertical"
-        android:src="@drawable/ammu"
+        android:src="@drawable/ic_baseline_person_24"
         android:id="@+id/providerimage">
     </ImageView>
 

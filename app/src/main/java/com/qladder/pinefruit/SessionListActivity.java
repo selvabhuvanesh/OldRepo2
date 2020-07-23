@@ -28,7 +28,7 @@ public class SessionListActivity extends AppCompatActivity {
 
         while (index<=10)
         {
-            mSessionInfoList.add(new SessionInfo(R.drawable.ammu,sesionName[index],sessionDetails[index]));
+            mSessionInfoList.add(new SessionInfo(R.drawable.ic_baseline_person_24,sesionName[index],sessionDetails[index]));
 
               index++;
         }

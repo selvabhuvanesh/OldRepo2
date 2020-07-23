@@ -94,7 +94,7 @@ public class ProviderInfoActivity extends AppCompatActivity {
                 String mService = service.getText().toString();
                 String mProvider = provider.getText().toString();
 
-                    if (!(mFacility.trim().isEmpty() || mService.trim().isEmpty() ))
+                    if (!(mFacility.trim().isEmpty() || mService.trim().isEmpty() || Latitude ==0.0 ))
                     {
                         FirebaseDatabase database = FirebaseDatabase.getInstance();
                         DatabaseReference myRef = database.getReference("ManObject");
@@ -117,7 +117,7 @@ public class ProviderInfoActivity extends AppCompatActivity {
                     }
                    else
                     {
-                    Toast.makeText(ProviderInfoActivity.this,"Required \nCompany Name \n Service Name",Toast.LENGTH_LONG).show();
+                    Toast.makeText(ProviderInfoActivity.this,"Required \nCompany Name \nLocation \nService Name",Toast.LENGTH_LONG).show();
                     }
             }
 

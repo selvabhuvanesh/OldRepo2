@@ -20,6 +20,7 @@ public class SearchListAdapter extends ArrayAdapter <SessionInfo> {
     int mresource;
     List<SessionInfo> mSessionList;
 
+
     public SearchListAdapter(Context context, int resource, List<SessionInfo> sessionList) {
         super(context, resource, sessionList);
         this.mContext = context;
@@ -39,7 +40,6 @@ public class SearchListAdapter extends ArrayAdapter <SessionInfo> {
         ImageView imageView = view.findViewById(R.id.providerimage);
 
         final SessionInfo sessionInfo = mSessionList.get(position);
-
         sessionName.setText(sessionInfo.getSessionName());
         sessionDetails.setText(sessionInfo.getSessionDetails());
         //I am using only a standard image for test purpose.

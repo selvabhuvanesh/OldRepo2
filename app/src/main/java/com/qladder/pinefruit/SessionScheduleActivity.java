@@ -15,7 +15,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.Calendar;
+import java.util.Date;
 
 public class SessionScheduleActivity<TimePickerFragment> extends AppCompatActivity {
 
@@ -29,6 +33,18 @@ public class SessionScheduleActivity<TimePickerFragment> extends AppCompatActivi
     static int toHour;
     static int frommin;
     static int tomin;
+    String sessionInfoconfirmMessage;
+    String providerID;
+    String mserviceName;
+    String mproviderName;
+    String sessionStatus;
+    String mfromtime;
+    String mtotime;
+    String mdate;
+    String sessionID;
+    protected Intent confirmIntent;
+    FirebaseDatabase database ;
+    DatabaseReference myRef;
 
 
 
@@ -36,18 +52,23 @@ public class SessionScheduleActivity<TimePickerFragment> extends AppCompatActivi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
-
-
         fromTimebtn = (Button) findViewById(R.id.fromtime);
         toTimebtn = (Button) findViewById(R.id.totime);
         savebtn = (Button) findViewById(R.id.save);
         publishbtn = (Button) findViewById(R.id.publish);
         sdate = (CalendarView) findViewById(R.id.date);
+        confirmIntent = new Intent(SessionScheduleActivity.this, ProviderRegitserConfirmActivity.class);
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("Session");
 
+        savebtn.setEnabled(false);
+        publishbtn.setEnabled(false);
 
-        //Code while selecting From time to go hear
+        //Setting current date in the CALEDAR to avoid past date selection
+        Long currentDate = Calendar.getInstance().getTime().getTime();
+        sdate.setMinDate(currentDate);
 
-
+        //Code while selecting From time
         fromTimebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,7 +115,8 @@ public class SessionScheduleActivity<TimePickerFragment> extends AppCompatActivi
                 timePickerDialog.updateTime(toHour, tomin);
                 timePickerDialog.show();
 
-
+                savebtn.setEnabled(true);
+                publishbtn.setEnabled(true);
             }
         });
 
@@ -106,43 +128,43 @@ public class SessionScheduleActivity<TimePickerFragment> extends AppCompatActivi
         savebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Toast.makeText(SessionScheduleActivity.this, "Saved Successfully", Toast.LENGTH_LONG).show();
-                Intent test = getIntent();
-                Toast.makeText(SessionScheduleActivity.this,"Vale of Location is : "+test.getStringExtra("Latitude"),Toast.LENGTH_LONG).show();
-
-            }
+                if(isSaveSuccessful())
+                {
+                    Toast.makeText(SessionScheduleActivity.this, "Saved Successfully", Toast.LENGTH_LONG).show();
+                }
+                }
         });
 
-        //method for onclick of publish or share  button
+        //method for onclick of publish or share  button. This method changes the status to "Booking" and pass info to next intent
         publishbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-
-                String mservice = "\nService : "+getIntent().getStringExtra("service");
-                String mfacility = "Company : "+getIntent().getStringExtra("facility");
-                String mprovider = "\nProvider : "+getIntent().getStringExtra("provider");
-                String mfromtime = "\n From Time :"+fromTimebtn.getText().toString();
-                String mtotime = "\nTo Time :"+ toTimebtn.getText().toString();
-                String mdate = "\nDate : "+ selectedDate;
-
-                String sessionInfo = mfacility+mservice+mprovider+mdate+mfromtime+mtotime ;
-
+                if(isSaveSuccessful())
+                {
                 AlertDialog confirmDialog;
                 confirmDialog = new AlertDialog.Builder(SessionScheduleActivity.this)
                         .setTitle("Session Review")
-                        .setMessage(sessionInfo)
+                        .setMessage(sessionInfoconfirmMessage)
                         .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                Intent confirmIntent = new Intent(SessionScheduleActivity.this, ProviderRegitserConfirmActivity.class);
-                                confirmIntent.putExtra("service", getIntent().getStringExtra("service"));
-                                confirmIntent.putExtra("facility", getIntent().getStringExtra("facility"));
-                                confirmIntent.putExtra("provider", getIntent().getStringExtra("provider"));
-                                confirmIntent.putExtra("fromtime", fromTimebtn.getText().toString());
-                                confirmIntent.putExtra("totime", toTimebtn.getText().toString());
-                                confirmIntent.putExtra("sdate", selectedDate);
+                                sessionStatus = "Booking";
+                                SessionInfo sessionInfo = new SessionInfo(
+                                        sessionID,
+                                        providerID,
+                                        mfromtime,
+                                        mtotime,
+                                        mdate,
+                                        sessionStatus);
+                                myRef.child(sessionID).setValue(sessionInfo);
+
+
+                                confirmIntent.putExtra("serviceName", getIntent().getStringExtra("serviceName"));
+                                confirmIntent.putExtra("providerName", getIntent().getStringExtra("providerName"));
+                                confirmIntent.putExtra("fromTime",mfromtime);
+                                confirmIntent.putExtra("toTime",mtotime );
+                                confirmIntent.putExtra("date",mdate );
                                 startActivity(confirmIntent);
                             }
                         })
@@ -160,16 +182,20 @@ public class SessionScheduleActivity<TimePickerFragment> extends AppCompatActivi
                 confirmIntent.putExtra("Longitude ", mainIntent.getStringExtra("Longitude"));
                 confirmIntent.putExtra("AddressLine ", mainIntent.getStringExtra("AddressLine"));
                 confirmIntent.putExtra("Location ", mainIntent.getStringExtra("Location"));*/
-            }
+            }}
 
         });
+
+
+
 
 
         sdate.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
-                //Setting the date based on selection
-                selectedDate = i + "/" + (i1 + 1) + "/" + i2;
+
+                Date mselected = new Date(i,i1,i2);
+                selectedDate = mselected+"";
 
             }
 
@@ -179,23 +205,46 @@ public class SessionScheduleActivity<TimePickerFragment> extends AppCompatActivi
 
     }
 
+    private boolean isSaveSuccessful() {
+        mfromtime = fromTimebtn.getText().toString();
+        mtotime = toTimebtn.getText().toString();
+        mdate = selectedDate;
+        sessionStatus = "Saved";
 
+        if(!(mfromtime ==null || mtotime == null || mdate==null)) {
+            sessionInfoconfirmMessage = "Service : "+mserviceName
+                    +"\nProvider Name : " + mproviderName
+                    +"\nSession Date : " + mdate
+                    +"\nStartTime : "+ mfromtime+"\nEnd Time : " + mtotime;
+            if(sessionID==null)
+            {
+                sessionID = myRef.push().getKey();
+            }
+            else {
+                SessionInfo sessionInfo = new SessionInfo(
+                        sessionID,
+                        providerID,
+                        mfromtime,
+                        mtotime,
+                        mdate,
+                        sessionStatus);
+                myRef.child(sessionID).setValue(sessionInfo);
+            }
+            return true;
+        }
+        else
+        {
+            Toast.makeText(this,"From Time \nTo Time and \nDate are required",Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+    }
 
 
     @Override
     protected void onResume() {
         super.onResume();
-        /*String facility;
-        String provider;
-        String service;
-        Intent homeIntent = getIntent();
-        service = homeIntent.getStringExtra("service");
-        provider = homeIntent.getStringExtra("provider");
-        facility = homeIntent.getStringExtra("facility");
-
-        //Log.d("Resume Called ***** ", service);
-        //Toast.makeText(this, "Service Name : " + service + "\n Provider : " + provider + "\n Facility : " + facility, Toast.LENGTH_LONG).show();
-        */
+        Toast.makeText(this,"OnResumed called from SessionSchedule Activity",Toast.LENGTH_LONG).show();
 
     }
 

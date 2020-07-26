@@ -5,6 +5,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,8 +28,8 @@ import java.util.List;
 import java.util.Locale;
 
 public class ProviderInfoActivity extends AppCompatActivity {
-    Button proceed;
-    Button choseBtn;
+    Button proceedToSchedule;
+    Button choseLocationBtn;
     EditText facility;
     EditText provider;
     EditText service;
@@ -37,7 +38,12 @@ public class ProviderInfoActivity extends AppCompatActivity {
     double Latitude;
     double Longitude;
     String Locality;
+    String city;
+    String country;
+    String status;
+    String providerType;
     int PLACE_PICKER_REQUEST=1;
+    Spinner providerTypeSpinner;
 
 
     @Override
@@ -45,22 +51,34 @@ public class ProviderInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_provider_info);
 
-        proceed = (Button) findViewById(R.id.proceed);
+        proceedToSchedule = (Button) findViewById(R.id.proceed);
         facility = (EditText) findViewById(R.id.facilityName);
         service = (EditText) findViewById(R.id.serviceName);
         provider = (EditText) findViewById(R.id.providerName);
-        choseBtn = (Button) findViewById(R.id.choseLocation);
+        choseLocationBtn = (Button) findViewById(R.id.choseLocation);
 
         //setting default values for provider type dropdown list - this should be fetched from DB during first load
         String categories[] = {"Select Type", "Restaurant", "Hospital", "Fitness Center", "Community", "Coffee Shop", "Library", "Auto Service Station", "General Service", "Others"};
-        Spinner providerTypeSpinner = findViewById(R.id.proType);
-        ArrayAdapter datadapter;
+        providerTypeSpinner = findViewById(R.id.proType);
+        final ArrayAdapter datadapter;
         datadapter = new ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, categories);
         providerTypeSpinner.setAdapter(datadapter);
 
+        providerTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                providerType = providerTypeSpinner.getItemAtPosition(i).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
 
         //This is to open the map and select the location of the provider. this captures Lat, Long and the Locality
-        choseBtn.setOnClickListener(new View.OnClickListener() {
+        choseLocationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
@@ -87,35 +105,39 @@ public class ProviderInfoActivity extends AppCompatActivity {
 
 
         // Actions when proceed to schedule button is clicked. It checks for mandatory fields and moved to schedule screen
-        proceed.setOnClickListener(new View.OnClickListener() {
+        proceedToSchedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String mFacility = facility.getText().toString();
                 String mService = service.getText().toString();
                 String mProvider = provider.getText().toString();
 
-                    if (!(mFacility.trim().isEmpty() || mService.trim().isEmpty() || Latitude ==0.0 ))
+                   if (!(mFacility.trim().isEmpty() || mService.trim().isEmpty() || Latitude ==0.0 ))
                     {
                         FirebaseDatabase database = FirebaseDatabase.getInstance();
-                        DatabaseReference myRef = database.getReference("ManObject");
+                        DatabaseReference myRef = database.getReference("Provider");
                         String myId = myRef.push().getKey();
                         ProviderInfo providerInfo = new ProviderInfo(
                                 myId,
+                                providerType,
                                 mFacility,
-                                mService,
+                                mProvider,
                                 Locality,
-                                String.valueOf(Latitude).toString(),String.valueOf(Longitude).toString());
+                                String.valueOf(Latitude).toString(),
+                                String.valueOf(Longitude).toString(),
+                                city,
+                                country,
+                                status
+                                );
                         myRef.child(myId ).setValue(providerInfo);
                        // myRef.child( myRef.push().getKey()).setValue(providerInfo);
-                    proceedToScheduleIntent.putExtra("facility", mFacility);
-                    proceedToScheduleIntent.putExtra("service", mService);
-                    proceedToScheduleIntent.putExtra("provider", mProvider);
-                    proceedToScheduleIntent.putExtra("Latitude", Latitude);
-                    proceedToScheduleIntent.putExtra("Longitude",Longitude);
-                    proceedToScheduleIntent.putExtra("Locality", Locality);
+                    proceedToScheduleIntent.putExtra("providerID", myId);
+                    proceedToScheduleIntent.putExtra("serviceName", mService);
+                    proceedToScheduleIntent.putExtra("providerName", mProvider);
                     startActivity(proceedToScheduleIntent);
+                   finish();
                     }
-                   else
+                  // else
                     {
                     Toast.makeText(ProviderInfoActivity.this,"Required \nCompany Name \nLocation \nService Name",Toast.LENGTH_LONG).show();
                     }
@@ -137,6 +159,10 @@ public class ProviderInfoActivity extends AppCompatActivity {
                 Place  place = PlacePicker.getPlace(data,this);
                 Latitude = place.getLatLng().latitude;
                 Longitude = place.getLatLng().longitude;
+                city = place.getAddress().toString();
+                country = place.getPlaceTypes().toString();
+                status = "Active";
+
                 try {
                     Geocoder geo = new Geocoder(ProviderInfoActivity.this, Locale.getDefault());
                     List<Address> addresses = geo.getFromLocation(Latitude, Longitude, 1);

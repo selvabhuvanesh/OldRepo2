@@ -17,7 +17,6 @@
         android:roundIcon="@mipmap/pflogo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity android:name=".ProviderChoiceActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

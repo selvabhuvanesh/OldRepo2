@@ -40,17 +40,17 @@ public class SearchListAdapter extends ArrayAdapter <SessionInfo> {
         ImageView imageView = view.findViewById(R.id.providerimage);
 
         final SessionInfo sessionInfo = mSessionList.get(position);
-        sessionName.setText(sessionInfo.getSessionName());
-        sessionDetails.setText(sessionInfo.getSessionDetails());
-        //I am using only a standard image for test purpose.
+        sessionName.setText(sessionInfo.getSessionID()+" : "+sessionInfo.getMdate());
+        sessionDetails.setText(sessionInfo.getSessionStatus());
+        // using only a standard image for test purpose.
         // this has to be replaced by
         // image array or initial or date or session id which i have to decide later
-        imageView.setImageDrawable(mContext.getResources().getDrawable(sessionInfo.getImage()));
+        //imageView.setImageDrawable(mContext.getResources().getDrawable(sessionInfo.getImage()));
 
         view.findViewById(R.id.changebtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            Toast.makeText(getContext(),"You clicked : "+ sessionInfo.sessionName,Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(),"You clicked : "+ sessionInfo.sessionID,Toast.LENGTH_LONG).show();
             }
         });
         return view;

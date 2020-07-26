@@ -9,13 +9,13 @@
     <string name="From_time">Start Time</string>
     <string name="To_time">End Time</string>
     <string name="publish">Confirm</string>
-    <string name="Save">Modify</string>
+    <string name="Save">Save</string>
     <string name="Modify">Modify</string>
     <string name="Cancel">Cancel</string>
     <string name="proceed">Proceed with Scheduling</string>
     <string name="fronttext">Service Information</string>
     <string name="confrimlabel">Service Confirmation</string>
-    <string name="booksuccess">Success !!! Verify your service information and share to take bookings !!</string>
+    <string name="booksuccess">Success !!! \nVerify your service information and share with your contacts to take bookings !!! \n</string>
     <string name="viewbtnlabel">Manage Queue</string>
     <string name="createbtnlabel">Create New</string>
     <string name="title_menu_list">Items</string>
@@ -33,6 +33,8 @@
     <string name="login_failed">"Login failed"</string>
     <string name="choose_location">Choose Location</string>
     <string name="service_creation">Service Creation</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

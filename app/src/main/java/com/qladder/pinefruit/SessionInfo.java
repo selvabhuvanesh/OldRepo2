@@ -2,26 +2,49 @@ package com.qladder.pinefruit;
 
 public class SessionInfo {
 
-    int image;
-    String sessionName;
-    String sessionDetails;
+    String sessionID;
+    String providerID;
+    String mfromtime;
+    String mtotime;
+    String mdate;
+    String sessionStatus;
 
-    public SessionInfo(int image, String sessionName, String sessionDetails)
+    public SessionInfo(String sessionID,
+                       String providerID,
+                       String mfromtime,
+                       String mtotime,
+                       String mdate,
+                       String sessionStatus)
     {
-        this.image = image;
-        this.sessionName = sessionName;
-        this.sessionDetails=sessionDetails;
+        this.sessionID = sessionID;
+        this.providerID = providerID;
+        this.mfromtime=mfromtime;
+        this.mtotime = mtotime;
+        this.mdate = mdate;
+        this.sessionStatus = sessionStatus;
     }
 
-    public int getImage() {
-        return image;
+    public String getSessionID() {
+        return sessionID;
     }
 
-    public String getSessionName() {
-        return sessionName;
+    public String getProviderID() {
+        return providerID;
     }
 
-    public String getSessionDetails() {
-        return sessionDetails;
+    public String getMfromtime() {
+        return mfromtime;
+    }
+
+    public String getMtotime() {
+        return mtotime;
+    }
+
+    public String getMdate() {
+        return mdate;
+    }
+
+    public String getSessionStatus() {
+        return sessionStatus;
     }
 }

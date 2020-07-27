@@ -152,7 +152,6 @@ public class SessionScheduleActivity<TimePickerFragment> extends AppCompatActivi
                                 sessionStatus = "Booking";
                                 SessionInfo sessionInfo = new SessionInfo(
                                         sessionID,
-                                        providerID,
                                         mfromtime,
                                         mtotime,
                                         mdate,
@@ -223,7 +222,6 @@ public class SessionScheduleActivity<TimePickerFragment> extends AppCompatActivi
             else {
                 SessionInfo sessionInfo = new SessionInfo(
                         sessionID,
-                        providerID,
                         mfromtime,
                         mtotime,
                         mdate,

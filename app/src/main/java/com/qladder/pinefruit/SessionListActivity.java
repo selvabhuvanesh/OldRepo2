@@ -23,43 +23,50 @@ public class SessionListActivity extends AppCompatActivity {
 
 
     @Override
+    protected void onStart() {
+        super.onStart();
+
+
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_session_list);
 
+
         mSessionInfoList = new ArrayList<>();
-       /* db = FirebaseDatabase.getInstance().getReference();
-        sessionDBref = db.child("Session");
-        ValueEventListener eventListener = new ValueEventListener() {
+       /* db = FirebaseDatabase.getInstance().getReference("Session");
+        db.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                sessionInfo = new SessionInfo("","","asdasd","asdasda","Open");
 
-                        for (DataSnapshot ds : snapshot.getChildren()) {
-                        sessionInfo = ds.getValue(SessionInfo.class);
-                        mSessionInfoList.add(sessionInfo);
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    sessionInfo.sessionID = ds.child("sessionID").getValue().toString();
+                    sessionInfo.sessionStatus = ds.child("sessionStatus").getValue().toString();
+                    sessionInfo.mfromtime = ds.child("mfromtime").getValue().toString();
+                    sessionInfo.mdate = ds.child("mdate").getValue().toString();
+                    mSessionInfoList.add(sessionInfo);
 
-                    }
+                }
 
             }
-
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        };
 
 
-        sessionDBref.addValueEventListener(eventListener);
 
-        */
+        });*/
 
-        sessionInfo = new SessionInfo("001","hfhfh","asdasd","asdasda","Open");
-       int i=0;
+
+      int i=0;
        while (i<=5)
         {
-             //mSessionInfoList.add(R.drawable.fui_idp_button_background_phone,sessionInfo);
-            sessionInfo.sessionID = i+"Million Customer";
+            sessionInfo = new SessionInfo(i+" million","hfhfh","asdasd","asdasda","Open");
             mSessionInfoList.add(sessionInfo);
             i++;
         }

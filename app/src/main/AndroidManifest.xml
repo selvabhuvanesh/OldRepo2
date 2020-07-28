@@ -24,13 +24,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ProviderChoiceActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".ProviderChoiceActivity"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity android:name=".ProviderRegitserConfirmActivity" />
         <activity android:name=".SessionScheduleActivity" />
         <activity android:name=".ProviderInfoActivity" />

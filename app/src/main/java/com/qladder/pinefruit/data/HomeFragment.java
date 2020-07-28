@@ -1,5 +1,6 @@
 package com.qladder.pinefruit.data;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.qladder.pinefruit.ProviderInfoActivity;
 import com.qladder.pinefruit.R;
+import com.qladder.pinefruit.SessionListActivity;
 
 public class HomeFragment extends Fragment{
 
@@ -20,9 +23,12 @@ public class HomeFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-      /* super.onCreate(savedInstanceState);
-        createNewbtn = (Button) getView().findViewById(R.id.createSessionbtn);
-        viewbtn = (Button)getView().findViewById(R.id.viewSessionbtn);
+      // super.onCreate(savedInstanceState);
+       // super.onCreateView(inflater,container,savedInstanceState);
+       View view = inflater.inflate(R.layout.activity_provider_choice,container,false);
+
+        createNewbtn = (Button) view.findViewById(R.id.createSessionbtn);
+        viewbtn = (Button)view.findViewById(R.id.viewSessionbtn);
 
         // uncomment the below line to disable the view/modify button for production release
         //viewbtn.setEnabled(false);
@@ -31,7 +37,7 @@ public class HomeFragment extends Fragment{
         createNewbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent newIntent = new Intent(HomeFragment.this.getActivity(), ProviderInfoActivity.class);
+                Intent newIntent = new Intent(getContext(), ProviderInfoActivity.class);
                 startActivity(newIntent);
 
             }
@@ -40,13 +46,12 @@ public class HomeFragment extends Fragment{
         viewbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent viewIntent = new Intent(HomeFragment.this.getActivity(), SessionListActivity.class);
+                Intent viewIntent = new Intent(getContext(), SessionListActivity.class);
                 startActivity(viewIntent);
             }
-        });*/
+        });
 
-        return inflater.inflate(R.layout.activity_provider_choice,container,false);
-
+        return view;
     }
     }
 

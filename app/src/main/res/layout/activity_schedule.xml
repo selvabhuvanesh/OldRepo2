@@ -88,12 +88,6 @@
         app:layout_constraintStart_toEndOf="@+id/save"
         app:layout_constraintTop_toBottomOf="@+id/date" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="#fefefe"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/navbar" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

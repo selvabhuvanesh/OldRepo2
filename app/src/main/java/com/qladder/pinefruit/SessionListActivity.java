@@ -38,35 +38,32 @@ public class SessionListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_session_list);
-
+        mListView = (ListView) findViewById(R.id.listview);
 
         mSessionInfoList = new ArrayList<>();
-       db = FirebaseDatabase.getInstance().getReference("Session");
-        db.addListenerForSingleValueEvent(new ValueEventListener() {
-    //    db.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+        sessionInfo = new SessionInfo("","","asdasd","asdasda","Open");
+        db = FirebaseDatabase.getInstance().getReference("Session");
 
-                System.out.println("****************AM ENTERING READ *******************");
-                sessionInfo = new SessionInfo("","","asdasd","asdasda","Open");
 
-               if (snapshot.exists()) {
-                   System.out.println("****************AM IN IF *******************");
-                   for (DataSnapshot ds : snapshot.getChildren()) {
-                       sessionInfo.sessionID = ds.child("sessionID").getValue().toString();
-                       System.out.println("****************AM IN FOR *******************" + ds.child("sessionID").getValue().toString());
-                       sessionInfo.sessionStatus = ds.child("sessionStatus").getValue().toString();
-                       sessionInfo.mfromtime = ds.child("mfromtime").getValue().toString();
-                       sessionInfo.mdate = ds.child("mdate").getValue().toString();
-                       mSessionInfoList.add(sessionInfo);
-
-                   }
-               } else {
-                   System.out.println("****************AM IN ELSE *******************");
-               }
+        //db.addListenerForSingleValueEvent(new ValueEventListener() {
+            db.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot != null)
+                    {
+                    for (DataSnapshot ds : snapshot.getChildren()) {
+                        sessionInfo.sessionID = ds.child("sessionID").getValue().toString();
+                        System.out.println("****************AM IN FOR *******************" + ds.child("sessionID").getValue().toString());
+                        sessionInfo.sessionStatus = ds.child("sessionStatus").getValue().toString();
+                        sessionInfo.mfromtime = ds.child("mfromtime").getValue().toString();
+                        sessionInfo.mdate = ds.child("mdate").getValue().toString();
+                        mSessionInfoList.add(sessionInfo);
+                        adapter = new SearchListAdapter(getApplicationContext(),R.layout.row, mSessionInfoList);
+                        mListView.setAdapter(adapter);
+                    }
+                    }
 
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -79,18 +76,6 @@ public class SessionListActivity extends AppCompatActivity {
         });
 
 
-      int i=0;
-       while (i<=5)
-        {
-            sessionInfo = new SessionInfo(i+" million","hfhfh","asdasd","asdasda","Open");
-            mSessionInfoList.add(sessionInfo);
-            i++;
-        }
-        mListView = (ListView) findViewById(R.id.listview);
-        adapter = new SearchListAdapter(this,R.layout.row, mSessionInfoList);
-        mListView.setAdapter(adapter);
 
-       }
-
-
+    }
 }

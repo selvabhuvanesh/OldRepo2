@@ -128,11 +128,9 @@ public class SessionScheduleActivity<TimePickerFragment> extends AppCompatActivi
         savebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(isSaveSuccessful())
-                {
-                    Toast.makeText(SessionScheduleActivity.this, "Saved Successfully", Toast.LENGTH_LONG).show();
-                }
-                }
+                if (isSaveSuccessful())
+                Toast.makeText(SessionScheduleActivity.this, "Saved Successfully", Toast.LENGTH_LONG).show();
+            }
         });
 
         //method for onclick of publish or share  button. This method changes the status to "Booking" and pass info to next intent
@@ -218,6 +216,13 @@ public class SessionScheduleActivity<TimePickerFragment> extends AppCompatActivi
             if(sessionID==null)
             {
                 sessionID = myRef.push().getKey();
+                SessionInfo sessionInfo = new SessionInfo(
+                        sessionID,
+                        mfromtime,
+                        mtotime,
+                        mdate,
+                        sessionStatus);
+                myRef.child(sessionID).setValue(sessionInfo);
             }
             else {
                 SessionInfo sessionInfo = new SessionInfo(

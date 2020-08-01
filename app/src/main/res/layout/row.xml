@@ -44,18 +44,6 @@
             android:textSize="15dp"
             android:id="@+id/sessionDetails"/>
 
-<Button
-    android:layout_width="wrap_content"
-    android:layout_height="30dp"
-    android:layout_marginTop="5dp"
-    android:paddingRight="10dp"
-    android:paddingLeft="10dp"
-    android:text="Modify"
-    android:id="@+id/changebtn"
-    android:background="@drawable/rounded_button"
-    android:drawableLeft="@drawable/ic_baseline_edit_24"
-    android:drawablePadding="5dp"/>
-
     </LinearLayout>
 
 

@@ -30,9 +30,9 @@ import java.util.Locale;
 public class ProviderInfoActivity extends AppCompatActivity {
     Button proceedToSchedule;
     Button choseLocationBtn;
-    EditText facility;
-    EditText provider;
-    EditText service;
+    EditText providerOrg;
+    EditText providerName;
+    EditText serviceName;
     FusedLocationProviderClient mFusedLocationProviderClient;
     Intent proceedToScheduleIntent;
     double Latitude;
@@ -42,6 +42,7 @@ public class ProviderInfoActivity extends AppCompatActivity {
     String country;
     String status;
     String providerType;
+    String providerId;
     int PLACE_PICKER_REQUEST=1;
     Spinner providerTypeSpinner;
 
@@ -52,14 +53,15 @@ public class ProviderInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_provider_info);
 
         proceedToSchedule = (Button) findViewById(R.id.proceed);
-        facility = (EditText) findViewById(R.id.facilityName);
-        service = (EditText) findViewById(R.id.serviceName);
-        provider = (EditText) findViewById(R.id.providerName);
+        providerOrg = (EditText) findViewById(R.id.providerOrg);
+        serviceName = (EditText) findViewById(R.id.serviceName);
+        providerName = (EditText) findViewById(R.id.providerName);
         choseLocationBtn = (Button) findViewById(R.id.choseLocation);
 
         //setting default values for provider type dropdown list - this should be fetched from DB during first load
         String categories[] = {"Select Type", "Restaurant", "Hospital", "Fitness Center", "Community", "Coffee Shop", "Library", "Auto Service Station", "General Service", "Others"};
         providerTypeSpinner = findViewById(R.id.proType);
+
         final ArrayAdapter datadapter;
         datadapter = new ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, categories);
         providerTypeSpinner.setAdapter(datadapter);
@@ -96,9 +98,8 @@ public class ProviderInfoActivity extends AppCompatActivity {
 
 
 
-        //get the current location of the provider---------Starts Here--------------------------
 
-        proceedToScheduleIntent = new Intent(ProviderInfoActivity.this, SessionScheduleActivity.class);
+
 
 
 
@@ -108,20 +109,21 @@ public class ProviderInfoActivity extends AppCompatActivity {
         proceedToSchedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String mFacility = facility.getText().toString();
-                String mService = service.getText().toString();
-                String mProvider = provider.getText().toString();
+                proceedToScheduleIntent = new Intent(getApplicationContext(),SessionScheduleActivity.class);
+                String mproviderOrg = providerOrg.getText().toString();
+                String mserviceName = serviceName.getText().toString();
+                String mproviderName = providerName.getText().toString();
 
-                   if (!(mFacility.trim().isEmpty() || mService.trim().isEmpty() || Latitude ==0.0 ))
+                   if (!(mproviderName.trim().isEmpty() || mserviceName.trim().isEmpty() || Latitude ==0.0 ))
                     {
                         FirebaseDatabase database = FirebaseDatabase.getInstance();
                         DatabaseReference myRef = database.getReference("Provider");
-                        String myId = myRef.push().getKey();
+                        providerId = myRef.push().getKey();
                         ProviderInfo providerInfo = new ProviderInfo(
-                                myId,
+                                providerId,
                                 providerType,
-                                mFacility,
-                                mProvider,
+                                mproviderOrg,
+                                mproviderName,
                                 Locality,
                                 String.valueOf(Latitude).toString(),
                                 String.valueOf(Longitude).toString(),
@@ -129,11 +131,11 @@ public class ProviderInfoActivity extends AppCompatActivity {
                                 country,
                                 status
                                 );
-                        myRef.child(myId ).setValue(providerInfo);
+                        myRef.child(providerId ).setValue(providerInfo);
                        // myRef.child( myRef.push().getKey()).setValue(providerInfo);
-                    proceedToScheduleIntent.putExtra("providerID", myId);
-                    proceedToScheduleIntent.putExtra("serviceName", mService);
-                    proceedToScheduleIntent.putExtra("providerName", mProvider);
+                    proceedToScheduleIntent.putExtra("providerId", providerId);
+                    proceedToScheduleIntent.putExtra("serviceName", mserviceName);
+                    proceedToScheduleIntent.putExtra("providerName",mproviderName);
                     startActivity(proceedToScheduleIntent);
                    finish();
                     }

@@ -13,6 +13,8 @@ import com.qladder.pinefruit.data.SettingsActivity;
 
 public class MainActivity extends AppCompatActivity {
 
+    Fragment selectedFragment = new HomeFragment();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,16 +22,18 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView bottomNavigationMenu = findViewById(R.id.bottomNavigationView);
         bottomNavigationMenu.setOnNavigationItemSelectedListener(navListener);
+        bottomNavigationMenu.setSelectedItemId(R.id.nav_home);
         }
 
         private BottomNavigationView.OnNavigationItemSelectedListener navListener =
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        Fragment selectedFragment = null;
+
 
                         switch (item.getItemId())
                         {
+
                             case R.id.nav_home:
                                 selectedFragment = new HomeFragment();
                                 break;

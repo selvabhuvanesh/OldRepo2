@@ -6,10 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -42,7 +40,6 @@ public class SearchListAdapter extends ArrayAdapter <SessionInfo> {
         final TextView sessionName = view.findViewById(R.id.sessionName);
         final TextView sessionDetails = view.findViewById(R.id.sessionDetails);
         ImageView imageView = view.findViewById(R.id.providerimage);
-        Button changeBtn = view.findViewById(R.id.changebtn);
 
         sessionInfo = mSessionList.get(position);
         sessionName.setText(sessionInfo.sessionID);
@@ -52,13 +49,7 @@ public class SearchListAdapter extends ArrayAdapter <SessionInfo> {
         // image array or initial or date or session id which i have to decide later
         imageView.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_baseline_person_24));
 
-       changeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            //Toast.makeText(getContext(),"You clicked : "+ sessionInfo.getSessionID(),Toast.LENGTH_LONG).show();
-                Toast.makeText(getContext(),"You clicked : "+sessionName.getText(), Toast.LENGTH_LONG).show();
-            }
-        });
+
 
         return view;
 

@@ -1,5 +1,6 @@
 package com.qladder.pinefruit;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -30,9 +31,11 @@ public class SessionListActivity extends AppCompatActivity {
     SearchListAdapter adapter;
 
 
+
     @Override
     protected void onStart() {
         super.onStart();
+
 
 
     }
@@ -40,12 +43,10 @@ public class SessionListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_session_list);
         mListView = (ListView) findViewById(R.id.listview);
-
-
         mSessionInfoList = new ArrayList<SessionInfo>();
-
         db = FirebaseDatabase.getInstance().getReference("Session");
 
 
@@ -79,10 +80,13 @@ public class SessionListActivity extends AppCompatActivity {
 
 
         });
+
             mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    Toast.makeText(getApplicationContext(),"You CLICKED : "+mSessionInfoList.get(i),Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"YOUR DOCTOR FOR MODIFICATION is  :  "+mSessionInfoList.get(i).getSessionID(),Toast.LENGTH_LONG).show();
+                    Intent providerInfoIntent = new Intent(SessionListActivity.this,ProviderInfoActivity.class);
+                    startActivity(providerInfoIntent);
                 }
             });
 

@@ -1,7 +1,10 @@
 package com.qladder.pinefruit;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,8 +43,9 @@ public class SessionListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_session_list);
         mListView = (ListView) findViewById(R.id.listview);
 
-        mSessionInfoList = new ArrayList<>();
-        sessionInfo = new SessionInfo("","","asdasd","asdasda","Open");
+
+        mSessionInfoList = new ArrayList<SessionInfo>();
+
         db = FirebaseDatabase.getInstance().getReference("Session");
 
 
@@ -52,6 +56,7 @@ public class SessionListActivity extends AppCompatActivity {
                     if(snapshot != null)
                     {
                     for (DataSnapshot ds : snapshot.getChildren()) {
+                        sessionInfo = new SessionInfo("","","asdasd","asdasda","Open");
                         sessionInfo.sessionID = ds.child("sessionID").getValue().toString();
                         System.out.println("****************AM IN FOR *******************" + ds.child("sessionID").getValue().toString());
                         sessionInfo.sessionStatus = ds.child("sessionStatus").getValue().toString();
@@ -74,6 +79,12 @@ public class SessionListActivity extends AppCompatActivity {
 
 
         });
+            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Toast.makeText(getApplicationContext(),"You CLICKED : "+mSessionInfoList.get(i),Toast.LENGTH_LONG).show();
+                }
+            });
 
 
 

@@ -12,7 +12,7 @@
         android:layout_height="match_parent" />
 
     <TextView
-        android:id="@+id/date"
+        android:id="@+id/dateText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -26,7 +26,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/totime" />
+        app:layout_constraintTop_toBottomOf="@+id/toTimeText" />
 
     <TextView
         android:id="@+id/confirmlabel"
@@ -42,7 +42,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/share"
+        android:id="@+id/shareBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_button"
@@ -55,10 +55,10 @@
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/date" />
+        app:layout_constraintTop_toBottomOf="@+id/dateText" />
 
     <TextView
-        android:id="@+id/serviceName"
+        android:id="@+id/serviceNameText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -71,10 +71,10 @@
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/providerOrg" />
+        app:layout_constraintTop_toBottomOf="@+id/providerOrgText" />
 
     <TextView
-        android:id="@+id/providerOrg"
+        android:id="@+id/providerOrgText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
@@ -106,7 +106,7 @@
         app:layout_constraintTop_toBottomOf="@+id/confirmlabel" />
 
     <TextView
-        android:id="@+id/providername"
+        android:id="@+id/providerNameText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -119,10 +119,10 @@
         android:text="@string/provider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/serviceName" />
+        app:layout_constraintTop_toBottomOf="@+id/serviceNameText" />
 
     <TextView
-        android:id="@+id/fromtime"
+        android:id="@+id/fromTimeText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -135,10 +135,10 @@
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/providername" />
+        app:layout_constraintTop_toBottomOf="@+id/providerNameText" />
 
     <TextView
-        android:id="@+id/totime"
+        android:id="@+id/toTimeText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -152,7 +152,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fromtime" />
+        app:layout_constraintTop_toBottomOf="@+id/fromTimeText" />
 
 
 

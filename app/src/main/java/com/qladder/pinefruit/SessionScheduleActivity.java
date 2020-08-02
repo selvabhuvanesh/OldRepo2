@@ -159,9 +159,9 @@ public class SessionScheduleActivity<TimePickerFragment> extends AppCompatActivi
 
                                 confirmIntent.putExtra("serviceName", getIntent().getStringExtra("serviceName"));
                                 confirmIntent.putExtra("providerName", getIntent().getStringExtra("providerName"));
-                                confirmIntent.putExtra("fromTime",mfromtime);
-                                confirmIntent.putExtra("toTime",mtotime );
-                                confirmIntent.putExtra("date",mdate );
+                                confirmIntent.putExtra("mfromTime",mfromtime);
+                                confirmIntent.putExtra("mtoTime",mtotime );
+                                confirmIntent.putExtra("mDate",mdate );
                                 startActivity(confirmIntent);
                             }
                         })
@@ -205,6 +205,8 @@ public class SessionScheduleActivity<TimePickerFragment> extends AppCompatActivi
     private boolean isSaveSuccessful() {
         mfromtime = fromTimebtn.getText().toString();
         mtotime = toTimebtn.getText().toString();
+        mserviceName = getIntent().getStringExtra("serviceName");
+        mproviderName = getIntent().getStringExtra("providerName");
         mdate = selectedDate;
         sessionStatus = "Saved";
 
@@ -212,7 +214,8 @@ public class SessionScheduleActivity<TimePickerFragment> extends AppCompatActivi
             sessionInfoconfirmMessage = "Service : "+mserviceName
                     +"\nProvider Name : " + mproviderName
                     +"\nSession Date : " + mdate
-                    +"\nStartTime : "+ mfromtime+"\nEnd Time : " + mtotime;
+                    +"\nStartTime : "+ mfromtime
+                    +"\nEnd Time : " + mtotime;
             if(sessionID==null)
             {
                 sessionID = myRef.push().getKey();
@@ -247,7 +250,7 @@ public class SessionScheduleActivity<TimePickerFragment> extends AppCompatActivi
     @Override
     protected void onResume() {
         super.onResume();
-        Toast.makeText(this,"OnResumed called from SessionSchedule Activity",Toast.LENGTH_LONG).show();
+        //Toast.makeText(this,"OnResumed called from SessionSchedule Activity",Toast.LENGTH_LONG).show();
 
     }
 

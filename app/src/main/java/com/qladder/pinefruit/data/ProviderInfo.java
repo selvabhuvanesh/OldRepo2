@@ -1,4 +1,4 @@
-package com.qladder.pinefruit;
+package com.qladder.pinefruit.data;
 
 public class ProviderInfo {
 

@@ -11,8 +11,12 @@ import androidx.appcompat.app.AppCompatActivity;
 public class ProviderRegitserConfirmActivity extends AppCompatActivity {
     Button modifybtn;
     Button sharebtn;
-    TextView providerName;
-    TextView serviceName;
+    TextView providerNameText;
+    TextView serviceNameText;
+    TextView providerOrgText;
+    TextView mfromTimeText;
+    TextView mtoTimeText;
+    TextView mDateText;
 
 
     @Override
@@ -20,15 +24,22 @@ public class ProviderRegitserConfirmActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_regitser_confirm);
 
-        sharebtn = (Button) findViewById(R.id.share);
-        providerName = (TextView) findViewById(R.id.providername);
-        serviceName = (TextView) findViewById(R.id.serviceName);
+        sharebtn = (Button) findViewById(R.id.shareBtn);
+        providerNameText = (TextView) findViewById(R.id.providerNameText);
+        serviceNameText = (TextView) findViewById(R.id.serviceNameText);
+        providerOrgText = (TextView) findViewById(R.id.providerOrgText);
+        mDateText = (TextView) findViewById(R.id.dateText);
+        mfromTimeText = (TextView) findViewById(R.id.fromTimeText);
+        mtoTimeText =(TextView) findViewById(R.id.toTimeText);
+
 
         final Intent saveIntent = getIntent();
-        serviceName.setText("Service : " + saveIntent.getStringExtra("serviceName"));
-        providerName.setText("Provider : " + saveIntent.getStringExtra("providerName"));
-
-       // sDate.setText("Lat :  " + saveIntent.getStringExtra("Latitude"));
+        providerOrgText.setText("Provider Org : "+saveIntent.getStringExtra("providerOrg"));
+        serviceNameText.setText("Service : " + saveIntent.getStringExtra("serviceName"));
+        providerNameText.setText("Provider : " + saveIntent.getStringExtra("providerName"));
+        mDateText.setText("Date : "+saveIntent.getStringExtra("mDate"));
+        mfromTimeText.setText("Start Time : "+saveIntent.getStringExtra("mfromTime"));
+        mtoTimeText.setText("End Time : "+saveIntent.getStringExtra("mtoTime"));
 
 
 
@@ -44,9 +55,9 @@ public class ProviderRegitserConfirmActivity extends AppCompatActivity {
                         "\n ----------------------"+
                         "\n Service : "+saveIntent.getStringExtra("serviceName")+
                         "\n Provider : "+saveIntent.getStringExtra("providerName")+
-                        "\n Date : "+saveIntent.getStringExtra("date")+
-                        "\n From Time : " + saveIntent.getStringExtra("fromTime")+
-                        "\n To Time : " + saveIntent.getStringExtra("toTime");
+                        "\n Date : "+saveIntent.getStringExtra("mDate")+
+                        "\n Start Time : " + saveIntent.getStringExtra("mfromTime")+
+                        "\n End Time : " + saveIntent.getStringExtra("mtoTime");
 
                 intent.putExtra(Intent.EXTRA_SUBJECT,appName);
                 intent.putExtra(Intent.EXTRA_TEXT,message);

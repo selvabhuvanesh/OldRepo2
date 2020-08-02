@@ -1,7 +1,5 @@
 package com.qladder.pinefruit.data;
 
-import com.qladder.pinefruit.data.model.LoggedInUser;
-
 import java.io.IOException;
 
 /**

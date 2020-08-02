@@ -37,13 +37,18 @@ public class SearchListAdapter extends ArrayAdapter <SessionInfo> {
 
         @SuppressLint("ViewHolder") View view = layoutInflater.inflate(R.layout.row,null);
 
-        final TextView sessionName = view.findViewById(R.id.sessionName);
-        final TextView sessionDetails = view.findViewById(R.id.sessionDetails);
+        TextView sessionName = view.findViewById(R.id.sessionName);
+        TextView sessionDetails = view.findViewById(R.id.sessionDetails);
+        TextView fromTime = view.findViewById(R.id.fromtime);
+        TextView toTime = view.findViewById(R.id.toTime);
         ImageView imageView = view.findViewById(R.id.providerimage);
+
 
         sessionInfo = mSessionList.get(position);
         sessionName.setText(sessionInfo.sessionID);
         sessionDetails.setText(sessionInfo.sessionStatus);
+        fromTime.setText("From : "+ sessionInfo.mfromtime);
+        toTime.setText("To : "+ sessionInfo.mtotime);
         // using only a standard image for test purpose.
         // this has to be replaced by
         // image array or initial or date or session id which i have to decide later

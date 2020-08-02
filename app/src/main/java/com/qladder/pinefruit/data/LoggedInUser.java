@@ -1,4 +1,4 @@
-package com.qladder.pinefruit.data.model;
+package com.qladder.pinefruit.data;
 
 /**
  * Data class that captures user information for logged in users retrieved from LoginRepository

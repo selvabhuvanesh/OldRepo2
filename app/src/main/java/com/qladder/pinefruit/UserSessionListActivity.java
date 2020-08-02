@@ -20,7 +20,7 @@ import com.qladder.pinefruit.data.ProviderInfo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SessionListActivity extends AppCompatActivity {
+public class UserSessionListActivity extends AppCompatActivity {
 
     List<SessionInfo> mSessionInfoList;
     ListView mListView;
@@ -85,7 +85,7 @@ public class SessionListActivity extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     Toast.makeText(getApplicationContext(),"ITEM SELECTED IS  :  "+mSessionInfoList.get(i).getSessionID(),Toast.LENGTH_LONG).show();
-                    Intent providerInfoIntent = new Intent(SessionListActivity.this,ProviderInfoActivity.class);
+                    Intent providerInfoIntent = new Intent(UserSessionListActivity.this,ProviderInfoActivity.class);
                     startActivity(providerInfoIntent);
                 }
             });

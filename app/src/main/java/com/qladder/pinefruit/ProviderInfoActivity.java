@@ -19,13 +19,16 @@ import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.location.places.ui.PlacePicker.IntentBuilder;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.qladder.pinefruit.data.ProviderInfo;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
+
+import static com.google.android.gms.location.places.ui.PlacePicker.getPlace;
 
 public class ProviderInfoActivity extends AppCompatActivity {
     Button proceedToSchedule;
@@ -83,7 +86,7 @@ public class ProviderInfoActivity extends AppCompatActivity {
         choseLocationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+                IntentBuilder builder = new IntentBuilder();
                 try {
                     startActivityForResult(builder.build(ProviderInfoActivity.this),PLACE_PICKER_REQUEST);
                 } catch (GooglePlayServicesRepairableException e) {
@@ -134,6 +137,7 @@ public class ProviderInfoActivity extends AppCompatActivity {
                         myRef.child(providerId ).setValue(providerInfo);
                        // myRef.child( myRef.push().getKey()).setValue(providerInfo);
                     proceedToScheduleIntent.putExtra("providerId", providerId);
+                    proceedToScheduleIntent.putExtra("providerOrg", mproviderOrg);
                     proceedToScheduleIntent.putExtra("serviceName", mserviceName);
                     proceedToScheduleIntent.putExtra("providerName",mproviderName);
                     startActivity(proceedToScheduleIntent);
@@ -141,7 +145,7 @@ public class ProviderInfoActivity extends AppCompatActivity {
                     }
                   // else
                     {
-                    Toast.makeText(ProviderInfoActivity.this,"Required \nCompany Name \nLocation \nService Name",Toast.LENGTH_LONG).show();
+                    Toast.makeText(ProviderInfoActivity.this,"Required \n--------- \nLocation \nService Name \nProvider Name",Toast.LENGTH_LONG).show();
                     }
             }
 
@@ -158,18 +162,20 @@ public class ProviderInfoActivity extends AppCompatActivity {
         if(requestCode == PLACE_PICKER_REQUEST)
         {if(resultCode == RESULT_OK)
             {
-                Place  place = PlacePicker.getPlace(data,this);
+                Place  place = getPlace(data,this);
                 Latitude = place.getLatLng().latitude;
                 Longitude = place.getLatLng().longitude;
-                city = place.getAddress().toString();
-                country = place.getPlaceTypes().toString();
                 status = "Active";
 
                 try {
                     Geocoder geo = new Geocoder(ProviderInfoActivity.this, Locale.getDefault());
                     List<Address> addresses = geo.getFromLocation(Latitude, Longitude, 1);
                     Locality = addresses.get(0).getLocality();
-                    Toast.makeText(this,"Location is"+Locality,Toast.LENGTH_LONG).show();
+                    city = addresses.get(0).getSubAdminArea();
+                    country = addresses.get(0).getCountryName();
+                    Toast.makeText(this,"Locality is : "+Locality +
+                            "\nCity is : "+city+
+                            "\nCountry is : "+country,Toast.LENGTH_LONG).show();
                 }catch (IOException e)
                 {
                     e.printStackTrace();

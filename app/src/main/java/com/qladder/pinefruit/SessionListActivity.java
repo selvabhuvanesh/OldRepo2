@@ -51,18 +51,20 @@ public class SessionListActivity extends AppCompatActivity {
         db = FirebaseDatabase.getInstance().getReference("Session");
 
 
-        //db.addListenerForSingleValueEvent(new ValueEventListener() {
-            db.addValueEventListener(new ValueEventListener() {
+        db.addValueEventListener(new ValueEventListener() {
+            // The below line commented is to be used for User view to see only records ready for booking
+            //db.orderByChild("sessionStatus").equalTo("Booking").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if(snapshot != null)
                     {
                     for (DataSnapshot ds : snapshot.getChildren()) {
-                        sessionInfo = new SessionInfo("","","asdasd","asdasda","Open");
+                        sessionInfo = new SessionInfo("","","","","","");
                         sessionInfo.sessionID = ds.child("sessionID").getValue().toString();
                         sessionInfo.sessionStatus = ds.child("sessionStatus").getValue().toString();
                         sessionInfo.mfromtime = ds.child("mfromtime").getValue().toString();
                         sessionInfo.mtotime = ds.child("mtotime").getValue().toString();
+                        sessionInfo.sessionName = ds.child("sessionName").getValue().toString();
                         mSessionInfoList.add(sessionInfo);
                         adapter = new SearchListAdapter(getApplicationContext(),R.layout.row, mSessionInfoList);
                         mListView.setAdapter(adapter);

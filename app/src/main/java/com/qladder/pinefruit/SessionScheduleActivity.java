@@ -153,7 +153,8 @@ public class SessionScheduleActivity<TimePickerFragment> extends AppCompatActivi
                                         mfromtime,
                                         mtotime,
                                         mdate,
-                                        sessionStatus);
+                                        sessionStatus,
+                                        mserviceName);
                                 myRef.child(sessionID).setValue(sessionInfo);
 
 
@@ -224,7 +225,8 @@ public class SessionScheduleActivity<TimePickerFragment> extends AppCompatActivi
                         mfromtime,
                         mtotime,
                         mdate,
-                        sessionStatus);
+                        sessionStatus,
+                        mserviceName);
                 myRef.child(sessionID).setValue(sessionInfo);
             }
             else {
@@ -233,7 +235,8 @@ public class SessionScheduleActivity<TimePickerFragment> extends AppCompatActivi
                         mfromtime,
                         mtotime,
                         mdate,
-                        sessionStatus);
+                        sessionStatus,
+                        mserviceName);
                 myRef.child(sessionID).setValue(sessionInfo);
             }
             return true;

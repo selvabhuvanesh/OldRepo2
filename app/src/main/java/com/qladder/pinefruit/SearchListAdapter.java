@@ -45,7 +45,7 @@ public class SearchListAdapter extends ArrayAdapter <SessionInfo> {
 
 
         sessionInfo = mSessionList.get(position);
-        sessionName.setText(sessionInfo.sessionID);
+        sessionName.setText(sessionInfo.sessionName);
         sessionDetails.setText(sessionInfo.sessionStatus);
         fromTime.setText("From : "+ sessionInfo.mfromtime);
         toTime.setText("To : "+ sessionInfo.mtotime);

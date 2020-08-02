@@ -8,12 +8,14 @@ public class SessionInfo {
     String mtotime;
     String mdate;
     String sessionStatus;
+    String sessionName;
 
     public SessionInfo(String sessionID,
                        String mfromtime,
                        String mtotime,
                        String mdate,
-                       String sessionStatus)
+                       String sessionStatus,
+                       String sessionName)
     {
         this.sessionID = sessionID;
         //this.providerID = providerID;
@@ -21,6 +23,7 @@ public class SessionInfo {
         this.mtotime = mtotime;
         this.mdate = mdate;
         this.sessionStatus = sessionStatus;
+        this.sessionName = sessionName;
     }
 
     public String getSessionID() {
@@ -45,5 +48,9 @@ public class SessionInfo {
 
     public String getSessionStatus() {
         return sessionStatus;
+    }
+
+    public String getSessionName() {
+        return sessionName;
     }
 }

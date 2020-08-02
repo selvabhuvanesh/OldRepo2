@@ -15,7 +15,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.qladder.pinefruit.data.ProviderInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,10 +24,7 @@ public class UserSessionListActivity extends AppCompatActivity {
     List<SessionInfo> mSessionInfoList;
     ListView mListView;
     DatabaseReference db;
-    DatabaseReference providerDBref;
     SessionInfo sessionInfo;
-    DatabaseReference sessionDBref;
-    ProviderInfo providerInfo;
     SearchListAdapter adapter;
 
 
@@ -58,11 +54,12 @@ public class UserSessionListActivity extends AppCompatActivity {
                     if(snapshot != null)
                     {
                     for (DataSnapshot ds : snapshot.getChildren()) {
-                        sessionInfo = new SessionInfo("","","asdasd","asdasda","Open");
+                        sessionInfo = new SessionInfo("","","","","","");
                         sessionInfo.sessionID = ds.child("sessionID").getValue().toString();
                         sessionInfo.sessionStatus = ds.child("sessionStatus").getValue().toString();
                         sessionInfo.mfromtime = ds.child("mfromtime").getValue().toString();
                         sessionInfo.mtotime = ds.child("mtotime").getValue().toString();
+                        sessionInfo.sessionName = ds.child("sessionName").getValue().toString();
                         mSessionInfoList.add(sessionInfo);
                         adapter = new SearchListAdapter(getApplicationContext(),R.layout.row, mSessionInfoList);
                         mListView.setAdapter(adapter);

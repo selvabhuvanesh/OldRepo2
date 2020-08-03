@@ -35,16 +35,24 @@ public class SessionScheduleActivity<TimePickerFragment> extends AppCompatActivi
     static int tomin;
     String sessionInfoconfirmMessage;
     String providerID;
-    String mserviceName;
-    String mproviderName;
+    String providerOrg;
+    String sessionSearchText;
+    String sessionName;
+    String providerName;
     String sessionStatus;
-    String mfromtime;
-    String mtotime;
-    String mdate;
+    String fromTime;
+    String toTime;
+    String sessionDate;
     String sessionID;
+    String providerLatitude;
+    String providerLongitude;
+    String providerLocality;
+    String providerCity;
+    String providerCountry;
     protected Intent confirmIntent;
     FirebaseDatabase database ;
-    DatabaseReference myRef;
+    DatabaseReference sessionDBReference;
+    DatabaseReference providerDBReference;
 
 
 
@@ -59,7 +67,9 @@ public class SessionScheduleActivity<TimePickerFragment> extends AppCompatActivi
         sdate = (CalendarView) findViewById(R.id.date);
         confirmIntent = new Intent(SessionScheduleActivity.this, ProviderRegitserConfirmActivity.class);
         database = FirebaseDatabase.getInstance();
-        myRef = database.getReference("Session");
+        sessionDBReference = database.getReference("Session");
+
+
 
         savebtn.setEnabled(false);
         publishbtn.setEnabled(false);
@@ -149,20 +159,17 @@ public class SessionScheduleActivity<TimePickerFragment> extends AppCompatActivi
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 sessionStatus = "Booking";
                                 SessionInfo sessionInfo = new SessionInfo(
-                                        sessionID,
-                                        mfromtime,
-                                        mtotime,
-                                        mdate,
-                                        sessionStatus,
-                                        mserviceName);
-                                myRef.child(sessionID).setValue(sessionInfo);
+                                        sessionID,fromTime,toTime,sessionDate,sessionStatus,
+                                        sessionName,providerID,providerOrg,providerName,sessionSearchText,
+                                        providerLatitude,providerLongitude);
 
+                                sessionDBReference.child(providerCountry).child(providerCity).child(sessionID).setValue(sessionInfo);
 
-                                confirmIntent.putExtra("serviceName", getIntent().getStringExtra("serviceName"));
+                                confirmIntent.putExtra("sessionName", getIntent().getStringExtra("sessionName"));
                                 confirmIntent.putExtra("providerName", getIntent().getStringExtra("providerName"));
-                                confirmIntent.putExtra("mfromTime",mfromtime);
-                                confirmIntent.putExtra("mtoTime",mtotime );
-                                confirmIntent.putExtra("mDate",mdate );
+                                confirmIntent.putExtra("fromTime",fromTime);
+                                confirmIntent.putExtra("toTime",toTime );
+                                confirmIntent.putExtra("sessionDate",sessionDate );
                                 startActivity(confirmIntent);
                             }
                         })
@@ -204,40 +211,74 @@ public class SessionScheduleActivity<TimePickerFragment> extends AppCompatActivi
     }
 
     private boolean isSaveSuccessful() {
-        mfromtime = fromTimebtn.getText().toString();
-        mtotime = toTimebtn.getText().toString();
-        mserviceName = getIntent().getStringExtra("serviceName");
-        mproviderName = getIntent().getStringExtra("providerName");
-        mdate = selectedDate;
+
+        Intent gotIntent = getIntent();
+
+        providerID = gotIntent.getStringExtra("providerID");
+        providerLatitude = gotIntent.getStringExtra("providerLatitude");
+        providerLongitude = gotIntent.getStringExtra("providerLongitude");
+        providerLocality = gotIntent.getStringExtra("providerLocality");
+        providerCity = gotIntent.getStringExtra("providerCity");
+        providerCountry = gotIntent.getStringExtra("providerCountry");
+        sessionName = gotIntent.getStringExtra("sessionName");
+        providerName = gotIntent.getStringExtra("providerName");
+        providerOrg =  gotIntent.getStringExtra("providerOrg");
+        sessionSearchText = providerOrg+providerName+sessionName;
+        fromTime = fromTimebtn.getText().toString();
+        toTime = toTimebtn.getText().toString();
+        sessionDate = selectedDate;
         sessionStatus = "Saved";
 
-        if(!(mfromtime ==null || mtotime == null || mdate==null)) {
-            sessionInfoconfirmMessage = "Service : "+mserviceName
-                    +"\nProvider Name : " + mproviderName
-                    +"\nSession Date : " + mdate
-                    +"\nStartTime : "+ mfromtime
-                    +"\nEnd Time : " + mtotime;
+       /* providerDBReference = database.getReference("Provider").child(providerID);
+        providerDBReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot ds : snapshot.getChildren())
+                {
+                    providerLatitude = ds.child("providerLatitude").getValue().toString();
+                    providerLongitude = ds.child("providerLongitude").getValue().toString();
+                    providerLocality = ds.child("providerLocality").getValue().toString();
+                    providerCity = ds.child("providerCity").getValue().toString();
+                    providerCountry = ds.child("providerCountry").getValue().toString();
+                    sessionName = ds.child("sessionName").getValue().toString();
+                    providerName = ds.child("providerName").getValue().toString();
+                    sessionSearchText = providerCity+providerCountry+providerLocality;
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            //Toast.makeText(SessionScheduleActivity.this,"Please check your internet connection",Toast.LENGTH_LONG).show();
+            }
+        });*/
+
+
+
+
+
+        if(!(fromTime ==null || toTime == null || sessionDate==null)) {
+            sessionInfoconfirmMessage = "Service : "+sessionName
+                    +"\nProvider Name : " + providerName
+                    +"\nSession Date : " + sessionDate
+                    +"\nStartTime : "+ fromTime
+                    +"\nEnd Time : " + toTime;
             if(sessionID==null)
             {
-                sessionID = myRef.push().getKey();
+                sessionID = sessionDBReference.push().getKey();
                 SessionInfo sessionInfo = new SessionInfo(
-                        sessionID,
-                        mfromtime,
-                        mtotime,
-                        mdate,
-                        sessionStatus,
-                        mserviceName);
-                myRef.child(sessionID).setValue(sessionInfo);
+                        sessionID,fromTime,toTime,sessionDate,sessionStatus,
+                        sessionName,providerID,providerOrg,providerName,sessionSearchText,
+                        providerLatitude,providerLongitude);
+                sessionDBReference.child(providerCountry).child(providerCity).child(sessionID).setValue(sessionInfo);
             }
             else {
                 SessionInfo sessionInfo = new SessionInfo(
-                        sessionID,
-                        mfromtime,
-                        mtotime,
-                        mdate,
-                        sessionStatus,
-                        mserviceName);
-                myRef.child(sessionID).setValue(sessionInfo);
+                        sessionID,fromTime,toTime,sessionDate,sessionStatus,
+                        sessionName,providerID,providerOrg,providerName,sessionSearchText,
+                        providerLatitude,providerLongitude);
+                sessionDBReference.child(providerCountry).child(providerCity).child(sessionID).setValue(sessionInfo);
             }
             return true;
         }

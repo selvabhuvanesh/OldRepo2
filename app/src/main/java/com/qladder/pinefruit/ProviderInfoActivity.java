@@ -35,7 +35,7 @@ public class ProviderInfoActivity extends AppCompatActivity {
     Button choseLocationBtn;
     EditText providerOrg;
     EditText providerName;
-    EditText serviceName;
+    EditText sessionName;
     FusedLocationProviderClient mFusedLocationProviderClient;
     Intent proceedToScheduleIntent;
     double Latitude;
@@ -57,7 +57,7 @@ public class ProviderInfoActivity extends AppCompatActivity {
 
         proceedToSchedule = (Button) findViewById(R.id.proceed);
         providerOrg = (EditText) findViewById(R.id.providerOrg);
-        serviceName = (EditText) findViewById(R.id.serviceName);
+        sessionName = (EditText) findViewById(R.id.serviceName);
         providerName = (EditText) findViewById(R.id.providerName);
         choseLocationBtn = (Button) findViewById(R.id.choseLocation);
 
@@ -114,10 +114,10 @@ public class ProviderInfoActivity extends AppCompatActivity {
             public void onClick(View view) {
                 proceedToScheduleIntent = new Intent(getApplicationContext(),SessionScheduleActivity.class);
                 String mproviderOrg = providerOrg.getText().toString();
-                String mserviceName = serviceName.getText().toString();
+                String msessionName = sessionName.getText().toString();
                 String mproviderName = providerName.getText().toString();
 
-                   if (!(mproviderName.trim().isEmpty() || mserviceName.trim().isEmpty() || Latitude ==0.0 ))
+                   if (!(mproviderName.trim().isEmpty() || msessionName.trim().isEmpty() || Latitude ==0.0 ))
                     {
                         FirebaseDatabase database = FirebaseDatabase.getInstance();
                         DatabaseReference myRef = database.getReference("Provider");
@@ -138,8 +138,16 @@ public class ProviderInfoActivity extends AppCompatActivity {
                        // myRef.child( myRef.push().getKey()).setValue(providerInfo);
                     proceedToScheduleIntent.putExtra("providerId", providerId);
                     proceedToScheduleIntent.putExtra("providerOrg", mproviderOrg);
-                    proceedToScheduleIntent.putExtra("serviceName", mserviceName);
+                    proceedToScheduleIntent.putExtra("sessionName", msessionName);
                     proceedToScheduleIntent.putExtra("providerName",mproviderName);
+                    proceedToScheduleIntent.putExtra("providerLatitude",String.valueOf(Latitude).toString());
+                    proceedToScheduleIntent.putExtra("providerLongitude",String.valueOf(Longitude).toString());
+                    proceedToScheduleIntent.putExtra("providerCountry",country);
+                    proceedToScheduleIntent.putExtra("providerCity",city);
+                    proceedToScheduleIntent.putExtra("providerLocality",Locality);
+
+
+
                     startActivity(proceedToScheduleIntent);
                    finish();
                     }

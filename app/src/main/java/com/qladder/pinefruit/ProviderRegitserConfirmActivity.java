@@ -35,11 +35,11 @@ public class ProviderRegitserConfirmActivity extends AppCompatActivity {
 
         final Intent saveIntent = getIntent();
         providerOrgText.setText("Provider Org : "+saveIntent.getStringExtra("providerOrg"));
-        serviceNameText.setText("Service : " + saveIntent.getStringExtra("serviceName"));
+        serviceNameText.setText("Service : " + saveIntent.getStringExtra("sessionName"));
         providerNameText.setText("Provider : " + saveIntent.getStringExtra("providerName"));
-        mDateText.setText("Date : "+saveIntent.getStringExtra("mDate"));
-        mfromTimeText.setText("Start Time : "+saveIntent.getStringExtra("mfromTime"));
-        mtoTimeText.setText("End Time : "+saveIntent.getStringExtra("mtoTime"));
+        mDateText.setText("Date : "+saveIntent.getStringExtra("sessionDate"));
+        mfromTimeText.setText("Start Time : "+saveIntent.getStringExtra("fromTime"));
+        mtoTimeText.setText("End Time : "+saveIntent.getStringExtra("toTime"));
 
 
 
@@ -53,11 +53,11 @@ public class ProviderRegitserConfirmActivity extends AppCompatActivity {
                 //String message = "You can now book the consultation using Pine Fruit";
                 String message = "Hi, The below consultation is ready for booking. Please use PineFruit app to book your slot " +
                         "\n ----------------------"+
-                        "\n Service : "+saveIntent.getStringExtra("serviceName")+
+                        "\n Service : "+saveIntent.getStringExtra("sessionName")+
                         "\n Provider : "+saveIntent.getStringExtra("providerName")+
-                        "\n Date : "+saveIntent.getStringExtra("mDate")+
-                        "\n Start Time : " + saveIntent.getStringExtra("mfromTime")+
-                        "\n End Time : " + saveIntent.getStringExtra("mtoTime");
+                        "\n Date : "+saveIntent.getStringExtra("sessionDate")+
+                        "\n Start Time : " + saveIntent.getStringExtra("fromTime")+
+                        "\n End Time : " + saveIntent.getStringExtra("toTime");
 
                 intent.putExtra(Intent.EXTRA_SUBJECT,appName);
                 intent.putExtra(Intent.EXTRA_TEXT,message);

@@ -54,7 +54,7 @@ public class UserSessionListActivity extends AppCompatActivity {
                     if(snapshot != null)
                     {
                     for (DataSnapshot ds : snapshot.getChildren()) {
-                        sessionInfo = new SessionInfo("","","","","","");
+                        sessionInfo = new SessionInfo("","","","","","","","","","","","");
                         sessionInfo.sessionID = ds.child("sessionID").getValue().toString();
                         sessionInfo.sessionStatus = ds.child("sessionStatus").getValue().toString();
                         sessionInfo.mfromtime = ds.child("mfromtime").getValue().toString();

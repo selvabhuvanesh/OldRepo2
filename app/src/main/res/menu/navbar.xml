@@ -5,14 +5,20 @@
     <item
         android:id="@+id/nav_home"
         android:icon="@drawable/ic_home_black_24dp"
+        app:showAsAction="collapseActionView"
+
         android:title="Home" />
     <item
         android:id="@+id/nav_notification"
-        android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="Notification" />
+        android:icon="@drawable/places_ic_search"
+        app:showAsAction="collapseActionView"
+        android:title="Search"
+        app:actionViewClass="androidx.appcompat.widget.SearchView" />
     <item
         android:id="@+id/nav_settings"
         android:title="Settings"
+        app:showAsAction="collapseActionView"
+
         android:icon="@drawable/ic_settings_black_24dp"
         />
 </menu>

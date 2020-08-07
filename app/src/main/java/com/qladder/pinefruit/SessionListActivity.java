@@ -50,6 +50,18 @@ public class SessionListActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            ActivityCompat.requestPermissions(SessionListActivity.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+
+            return;
+        }
 
 
     }
@@ -65,17 +77,19 @@ public class SessionListActivity extends AppCompatActivity {
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
-            ActivityCompat.requestPermissions(SessionListActivity.this,new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},44);
+            ActivityCompat.requestPermissions(SessionListActivity.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
             // here to request the missing permissions, and then overriding
             //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
             //                                          int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
+
             return;
         }
+
 
         fusedLocationClient.getLastLocation()
                 .addOnCompleteListener(new OnCompleteListener<Location>() {
@@ -89,7 +103,7 @@ public class SessionListActivity extends AppCompatActivity {
                                 Geocoder geo = new Geocoder(SessionListActivity.this, Locale.getDefault());
                                 List<Address> addresses = geo.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
                                 //Locality = addresses.get(0).getLocality();
-                                city = addresses.get(0).getSubAdminArea();
+                                city = addresses.get(0).getAdminArea();
                                 country = addresses.get(0).getCountryName();
                                 Toast.makeText(SessionListActivity.this, "Inside default Location : " + city + country, Toast.LENGTH_LONG).show();
                                 db = FirebaseDatabase.getInstance().getReference("Session").child(country).child(city);
@@ -106,6 +120,7 @@ public class SessionListActivity extends AppCompatActivity {
                                                 sessionInfo.mfromtime = ds.child("mfromtime").getValue().toString();
                                                 sessionInfo.mtotime = ds.child("mtotime").getValue().toString();
                                                 sessionInfo.sessionName = ds.child("sessionName").getValue().toString();
+                                                sessionInfo.providerID =ds.child("providerID").getValue().toString();
                                                 mSessionInfoList.add(sessionInfo);
                                                 adapter = new SearchListAdapter(getApplicationContext(), R.layout.row, mSessionInfoList);
                                                 mListView.setAdapter(adapter);
@@ -140,9 +155,11 @@ public class SessionListActivity extends AppCompatActivity {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getApplicationContext(), "ITEM SELECTED IS  :  " + mSessionInfoList.get(i).getSessionID(), Toast.LENGTH_LONG).show();
-                Intent providerInfoIntent = new Intent(SessionListActivity.this, ProviderInfoActivity.class);
+                Toast.makeText(getApplicationContext(), "ITEM SELECTED IS  :  " + mSessionInfoList.get(i).getProviderID(), Toast.LENGTH_LONG).show();
+                Intent providerInfoIntent = new Intent(SessionListActivity.this, EditSessionInfo.class);
+                providerInfoIntent.putExtra("providerID",mSessionInfoList.get(i).getProviderID());
                 startActivity(providerInfoIntent);
+
             }
         });
 

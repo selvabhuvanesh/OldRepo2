@@ -18,8 +18,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 public class SessionScheduleActivity<TimePickerFragment> extends AppCompatActivity {
 
@@ -53,6 +53,7 @@ public class SessionScheduleActivity<TimePickerFragment> extends AppCompatActivi
     FirebaseDatabase database ;
     DatabaseReference sessionDBReference;
     DatabaseReference providerDBReference;
+    Intent gotIntent;
 
 
 
@@ -68,6 +69,7 @@ public class SessionScheduleActivity<TimePickerFragment> extends AppCompatActivi
         confirmIntent = new Intent(SessionScheduleActivity.this, ProviderRegitserConfirmActivity.class);
         database = FirebaseDatabase.getInstance();
         sessionDBReference = database.getReference("Session");
+        gotIntent = getIntent();
 
 
 
@@ -95,7 +97,7 @@ public class SessionScheduleActivity<TimePickerFragment> extends AppCompatActivi
                                 calendar.set(0, 0, 0, fromHour, frommin);
                                 fromTimebtn.setText(DateFormat.format("hh:mm aa", calendar));
                             }
-                        }, 12, 0, false
+                        }, 12, 0, true
                 );
                 timePickerDialog.updateTime(fromHour, frommin);
                 timePickerDialog.show();
@@ -120,7 +122,7 @@ public class SessionScheduleActivity<TimePickerFragment> extends AppCompatActivi
                                 calendar.set(0, 0, 0, toHour, tomin);
                                 toTimebtn.setText(DateFormat.format("hh:mm aa", calendar));
                             }
-                        }, 12, 0, false
+                        }, 12, 0, true
                 );
                 timePickerDialog.updateTime(toHour, tomin);
                 timePickerDialog.show();
@@ -162,7 +164,6 @@ public class SessionScheduleActivity<TimePickerFragment> extends AppCompatActivi
                                         sessionID,fromTime,toTime,sessionDate,sessionStatus,
                                         sessionName,providerID,providerOrg,providerName,sessionSearchText,
                                         providerLatitude,providerLongitude);
-
                                 sessionDBReference.child(providerCountry).child(providerCity).child(sessionID).setValue(sessionInfo);
 
                                 confirmIntent.putExtra("sessionName", getIntent().getStringExtra("sessionName"));
@@ -171,6 +172,7 @@ public class SessionScheduleActivity<TimePickerFragment> extends AppCompatActivi
                                 confirmIntent.putExtra("toTime",toTime );
                                 confirmIntent.putExtra("sessionDate",sessionDate );
                                 startActivity(confirmIntent);
+                                finish();
                             }
                         })
                         .setNegativeButton("Not Sure", new DialogInterface.OnClickListener() {
@@ -199,8 +201,13 @@ public class SessionScheduleActivity<TimePickerFragment> extends AppCompatActivi
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
 
-                Date mselected = new Date(i,i1,i2);
-                selectedDate = mselected+"";
+              //  Date mselected = new Date(i,i1,i2);
+                Calendar cal = Calendar.getInstance();
+                cal.set(i,i1,i2);
+                //selectedDate = mselected+"";
+
+                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                selectedDate = String.valueOf(cal.getTime());
 
             }
 
@@ -212,7 +219,7 @@ public class SessionScheduleActivity<TimePickerFragment> extends AppCompatActivi
 
     private boolean isSaveSuccessful() {
 
-        Intent gotIntent = getIntent();
+
 
         providerID = gotIntent.getStringExtra("providerID");
         providerLatitude = gotIntent.getStringExtra("providerLatitude");
@@ -228,34 +235,6 @@ public class SessionScheduleActivity<TimePickerFragment> extends AppCompatActivi
         toTime = toTimebtn.getText().toString();
         sessionDate = selectedDate;
         sessionStatus = "Saved";
-
-       /* providerDBReference = database.getReference("Provider").child(providerID);
-        providerDBReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot ds : snapshot.getChildren())
-                {
-                    providerLatitude = ds.child("providerLatitude").getValue().toString();
-                    providerLongitude = ds.child("providerLongitude").getValue().toString();
-                    providerLocality = ds.child("providerLocality").getValue().toString();
-                    providerCity = ds.child("providerCity").getValue().toString();
-                    providerCountry = ds.child("providerCountry").getValue().toString();
-                    sessionName = ds.child("sessionName").getValue().toString();
-                    providerName = ds.child("providerName").getValue().toString();
-                    sessionSearchText = providerCity+providerCountry+providerLocality;
-
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            //Toast.makeText(SessionScheduleActivity.this,"Please check your internet connection",Toast.LENGTH_LONG).show();
-            }
-        });*/
-
-
-
 
 
         if(!(fromTime ==null || toTime == null || sessionDate==null)) {

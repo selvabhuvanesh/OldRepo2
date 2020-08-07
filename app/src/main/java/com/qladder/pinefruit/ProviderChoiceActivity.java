@@ -23,6 +23,8 @@ Button viewbtn;
         //viewbtn.setEnabled(false);
 
 
+
+
         createNewbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -35,8 +37,11 @@ Button viewbtn;
         viewbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent viewIntent = new Intent(ProviderChoiceActivity.this, SessionListActivity.class);
-                startActivity(viewIntent);
+
+
+                    Intent viewIntent = new Intent(ProviderChoiceActivity.this, SessionListActivity.class);
+                    startActivity(viewIntent);
+
             }
         });
 

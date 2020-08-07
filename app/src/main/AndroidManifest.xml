@@ -33,6 +33,8 @@
         <activity android:name=".SessionScheduleActivity" />
         <activity android:name=".ProviderInfoActivity" />
         <activity android:name=".SessionListActivity" />
+        <activity android:name=".EditSessionInfo" />
+
     </application>
 
 </manifest>

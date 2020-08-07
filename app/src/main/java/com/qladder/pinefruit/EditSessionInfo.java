@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,8 +21,11 @@ import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker.IntentBuilder;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.qladder.pinefruit.data.ProviderInfo;
 
 import java.io.IOException;
@@ -30,7 +34,7 @@ import java.util.Locale;
 
 import static com.google.android.gms.location.places.ui.PlacePicker.getPlace;
 
-public class ProviderInfoActivity extends AppCompatActivity {
+public class EditSessionInfo extends AppCompatActivity {
     Button proceedToSchedule;
     Button choseLocationBtn;
     EditText providerOrg;
@@ -45,9 +49,10 @@ public class ProviderInfoActivity extends AppCompatActivity {
     String country;
     String status;
     String providerType;
-    String providerID;
-    int PLACE_PICKER_REQUEST=1;
+    String providerId;
+    int PLACE_PICKER_REQUEST = 1;
     Spinner providerTypeSpinner;
+    private DatabaseReference db;
 
 
     @Override
@@ -60,10 +65,47 @@ public class ProviderInfoActivity extends AppCompatActivity {
         sessionName = (EditText) findViewById(R.id.serviceName);
         providerName = (EditText) findViewById(R.id.providerName);
         choseLocationBtn = (Button) findViewById(R.id.choseLocation);
+        providerId = getIntent().getStringExtra("providerID");
 
         //setting default values for provider type dropdown list - this should be fetched from DB during first load
         String categories[] = {"Select Type", "Restaurant", "Hospital", "Fitness Center", "Community", "Coffee Shop", "Library", "Auto Service Station", "General Service", "Others"};
         providerTypeSpinner = findViewById(R.id.proType);
+
+
+
+
+        db = FirebaseDatabase.getInstance().getReference("Provider").child(providerId);
+        db.addValueEventListener(new ValueEventListener() {
+            // The below line commented is to be used for User view to see only records ready for booking
+            //db.orderByChild("sessionStatus").equalTo("Booking").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        ProviderInfo mproviderInfo = snapshot.getValue(ProviderInfo.class);
+                        providerOrg.setText(mproviderInfo.getProviderOrg());
+                        //sessionName.setText(ds.child("sessionName").getValue().toString());
+                        providerName.setText(mproviderInfo.getProviderName());
+                        Latitude = new Double(mproviderInfo.getProviderLatitude());
+                        Longitude = new Double(mproviderInfo.getProviderLongitude());
+
+
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+                // ERRRRRRRROR
+                System.out.println("**************ONCANCALLED***********8");
+            }
+
+
+        });
+
+
+        ///////////////////////
 
         final ArrayAdapter datadapter;
         datadapter = new ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, categories);
@@ -88,7 +130,7 @@ public class ProviderInfoActivity extends AppCompatActivity {
             public void onClick(View view) {
                 IntentBuilder builder = new IntentBuilder();
                 try {
-                    startActivityForResult(builder.build(ProviderInfoActivity.this),PLACE_PICKER_REQUEST);
+                    startActivityForResult(builder.build(EditSessionInfo.this),PLACE_PICKER_REQUEST);
                 } catch (GooglePlayServicesRepairableException e) {
                     e.printStackTrace();
                 } catch (GooglePlayServicesNotAvailableException e) {
@@ -117,26 +159,26 @@ public class ProviderInfoActivity extends AppCompatActivity {
                 String msessionName = sessionName.getText().toString();
                 String mproviderName = providerName.getText().toString();
 
-                   if (!(mproviderName.trim().isEmpty() || msessionName.trim().isEmpty() || Latitude ==0.0 ))
-                    {
-                        FirebaseDatabase database = FirebaseDatabase.getInstance();
-                        DatabaseReference myRef = database.getReference("Provider");
-                        providerID = myRef.push().getKey();
-                        ProviderInfo providerInfo = new ProviderInfo(
-                                providerID,
-                                providerType,
-                                mproviderOrg,
-                                mproviderName,
-                                Locality,
-                                String.valueOf(Latitude).toString(),
-                                String.valueOf(Longitude).toString(),
-                                city,
-                                country,
-                                status
-                                );
-                        myRef.child(providerID).setValue(providerInfo);
-                       // myRef.child( myRef.push().getKey()).setValue(providerInfo);
-                    proceedToScheduleIntent.putExtra("providerID", providerID);
+                if (!(mproviderName.trim().isEmpty() || msessionName.trim().isEmpty() || Latitude ==0.0 ))
+                {
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference myRef = database.getReference("Provider");
+                    providerId = myRef.push().getKey();
+                    ProviderInfo providerInfo = new ProviderInfo(
+                            providerId,
+                            providerType,
+                            mproviderOrg,
+                            mproviderName,
+                            Locality,
+                            String.valueOf(Latitude).toString(),
+                            String.valueOf(Longitude).toString(),
+                            city,
+                            country,
+                            status
+                    );
+                    db.setValue(providerInfo);
+                    // myRef.child( myRef.push().getKey()).setValue(providerInfo);
+                    proceedToScheduleIntent.putExtra("providerId", providerId);
                     proceedToScheduleIntent.putExtra("providerOrg", mproviderOrg);
                     proceedToScheduleIntent.putExtra("sessionName", msessionName);
                     proceedToScheduleIntent.putExtra("providerName",mproviderName);
@@ -149,12 +191,12 @@ public class ProviderInfoActivity extends AppCompatActivity {
 
 
                     startActivity(proceedToScheduleIntent);
-                   finish();
-                    }
-                   else
-                    {
-                    Toast.makeText(ProviderInfoActivity.this,"Required \n--------- \nLocation \nService Name \nProvider Name",Toast.LENGTH_LONG).show();
-                    }
+                    finish();
+                }
+                else
+                {
+                    Toast.makeText(EditSessionInfo.this,"Required \n--------- \nLocation \nService Name \nProvider Name",Toast.LENGTH_LONG).show();
+                }
             }
 
         });
@@ -169,26 +211,26 @@ public class ProviderInfoActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == PLACE_PICKER_REQUEST)
         {if(resultCode == RESULT_OK)
-            {
-                Place  place = getPlace(data,this);
-                Latitude = place.getLatLng().latitude;
-                Longitude = place.getLatLng().longitude;
-                status = "Active";
+        {
+            Place  place = getPlace(data,this);
+            Latitude = place.getLatLng().latitude;
+            Longitude = place.getLatLng().longitude;
+            status = "Active";
 
-                try {
-                    Geocoder geo = new Geocoder(ProviderInfoActivity.this, Locale.getDefault());
-                    List<Address> addresses = geo.getFromLocation(Latitude, Longitude, 1);
-                    Locality = addresses.get(0).getLocality();
-                    city = addresses.get(0).getAdminArea();
-                    country = addresses.get(0).getCountryName();
-                    Toast.makeText(this,"Locality is : "+Locality +
-                            "\nCity is : "+city+
-                            "\nCountry is : "+country,Toast.LENGTH_LONG).show();
-                }catch (IOException e)
-                {
-                    e.printStackTrace();
-                }
+            try {
+                Geocoder geo = new Geocoder(EditSessionInfo.this, Locale.getDefault());
+                List<Address> addresses = geo.getFromLocation(Latitude, Longitude, 1);
+                Locality = addresses.get(0).getLocality();
+                city = addresses.get(0).getAdminArea();
+                country = addresses.get(0).getCountryName();
+                Toast.makeText(this,"Locality is : "+Locality +
+                        "\nCity is : "+city+
+                        "\nCountry is : "+country,Toast.LENGTH_LONG).show();
+            }catch (IOException e)
+            {
+                e.printStackTrace();
             }
+        }
 
         }
     }

@@ -15,6 +15,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -54,6 +56,9 @@ public class SessionScheduleActivity<TimePickerFragment> extends AppCompatActivi
     DatabaseReference sessionDBReference;
     DatabaseReference providerDBReference;
     Intent gotIntent;
+    String userName;
+    String userEmail;
+    String userID;
 
 
 
@@ -79,6 +84,17 @@ public class SessionScheduleActivity<TimePickerFragment> extends AppCompatActivi
         //Setting current date in the CALEDAR to avoid past date selection
         Long currentDate = Calendar.getInstance().getTime().getTime();
         sdate.setMinDate(currentDate);
+
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(SessionScheduleActivity.this);
+        if(acct != null)
+        {
+            userName = acct.getDisplayName();
+            userEmail = acct.getEmail();
+            userID = acct.getId();
+
+            //   Toast.makeText(this,"Inside the provider Name : "+personName,Toast.LENGTH_LONG).show();
+
+        }
 
         //Code while selecting From time
         fromTimebtn.setOnClickListener(new View.OnClickListener() {
@@ -126,11 +142,12 @@ public class SessionScheduleActivity<TimePickerFragment> extends AppCompatActivi
                 );
                 timePickerDialog.updateTime(toHour, tomin);
                 timePickerDialog.show();
-                if(fromHour<toHour && frommin >tomin) {
+                //if(fromHour<=toHour )
+                {
 
                     savebtn.setEnabled(true);
                     publishbtn.setEnabled(true);
-                }else
+                }
                 {
                     Toast.makeText(SessionScheduleActivity.this,"From Time cannot be after To time", Toast.LENGTH_LONG);
                 }
@@ -168,8 +185,8 @@ public class SessionScheduleActivity<TimePickerFragment> extends AppCompatActivi
                                 SessionInfo sessionInfo = new SessionInfo(
                                         sessionID,fromTime,toTime,sessionDate,sessionStatus,
                                         sessionName,providerID,providerOrg,providerName,sessionSearchText,
-                                        providerLatitude,providerLongitude);
-                                sessionDBReference.child(providerCountry).child(providerCity).child(sessionID).setValue(sessionInfo);
+                                        providerLatitude,providerLongitude,userEmail,userID,userName);
+                                sessionDBReference.child(providerCountry).child(providerCity).child(userID).child(sessionID).setValue(sessionInfo);
 
                                 confirmIntent.putExtra("sessionName", getIntent().getStringExtra("sessionName"));
                                 confirmIntent.putExtra("providerName", getIntent().getStringExtra("providerName"));
@@ -254,15 +271,15 @@ public class SessionScheduleActivity<TimePickerFragment> extends AppCompatActivi
                 SessionInfo sessionInfo = new SessionInfo(
                         sessionID,fromTime,toTime,sessionDate,sessionStatus,
                         sessionName,providerID,providerOrg,providerName,sessionSearchText,
-                        providerLatitude,providerLongitude);
-                sessionDBReference.child(providerCountry).child(providerCity).child(sessionID).setValue(sessionInfo);
+                        providerLatitude,providerLongitude,userEmail,userID,userName);
+                sessionDBReference.child(providerCountry).child(providerCity).child(userID).child(sessionID).setValue(sessionInfo);
             }
             else {
                 SessionInfo sessionInfo = new SessionInfo(
                         sessionID,fromTime,toTime,sessionDate,sessionStatus,
                         sessionName,providerID,providerOrg,providerName,sessionSearchText,
-                        providerLatitude,providerLongitude);
-                sessionDBReference.child(providerCountry).child(providerCity).child(sessionID).setValue(sessionInfo);
+                        providerLatitude,providerLongitude,userEmail,userID,userName);
+                sessionDBReference.child(providerCountry).child(providerCity).child(userID).child(sessionID).setValue(sessionInfo);
             }
             return true;
         }

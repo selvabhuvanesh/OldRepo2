@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -39,6 +41,9 @@ public class SessionInfoActivity extends AppCompatActivity {
     String providerID;
     int PLACE_PICKER_REQUEST=1;
     Spinner providerTypeSpinner;
+    String userName;
+    String userEmail;
+    String userID;
 
 
     @Override
@@ -49,6 +54,17 @@ public class SessionInfoActivity extends AppCompatActivity {
         proceedToSchedule = (Button) findViewById(R.id.proceed);
         sessionName = (EditText) findViewById(R.id.serviceName);
         providerName = (EditText) findViewById(R.id.providerName);
+
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(SessionInfoActivity.this);
+        if(acct != null)
+        {
+             userName = acct.getDisplayName();
+             userEmail = acct.getEmail();
+             userID = acct.getId();
+
+         //   Toast.makeText(this,"Inside the provider Name : "+personName,Toast.LENGTH_LONG).show();
+
+        }
 
         // Actions when proceed to schedule button is clicked. It checks for mandatory fields and moved to schedule screen
         proceedToSchedule.setOnClickListener(new View.OnClickListener() {
@@ -94,7 +110,7 @@ public class SessionInfoActivity extends AppCompatActivity {
                                 String.valueOf(Longitude).toString(),
                                 city,
                                 country,
-                                status
+                                status,userEmail,userID,userName
                                 );
                         myRef.child(providerID).setValue(providerInfo);
                        // myRef.child( myRef.push().getKey()).setValue(providerInfo);

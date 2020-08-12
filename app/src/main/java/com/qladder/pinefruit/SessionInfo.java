@@ -14,6 +14,9 @@ public class SessionInfo {
     String sessionSearchText;
     String providerLatitude;
     String providerLongitude;
+    String userEmail;
+    String userID;
+    String userName;
 
 
     public SessionInfo(String sessionID,
@@ -27,7 +30,10 @@ public class SessionInfo {
                        String providerName,
                        String sessionSearchText,
                        String providerLatitude,
-                       String providerLongitude)
+                       String providerLongitude,
+                       String userEmail,
+                       String userID,
+                       String userName)
     {
         this.sessionID = sessionID;
         this.mfromtime=mfromtime;
@@ -41,6 +47,9 @@ public class SessionInfo {
         this.sessionSearchText = sessionSearchText;
         this.providerLatitude = providerLatitude;
         this.providerLongitude = providerLongitude;
+        this.userEmail = userEmail;
+        this.userID = userID;
+        this.userName = userName;
 
     }
 
@@ -90,6 +99,18 @@ public class SessionInfo {
 
     public String getProviderLatitude() {
         return providerLatitude;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public String getUserName() {
+        return userName;
     }
 
     public String getProviderLongitude() {

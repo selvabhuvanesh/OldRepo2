@@ -12,9 +12,10 @@ public class ProviderInfo {
     private String providerCity;
     private String providerCountry;
     private String providerStatus;
+    private String userEmail;
+    private String userName;
+    private String userID;
 
-    public ProviderInfo() {
-    }
 
     public ProviderInfo(String providerID,
                         String providerType,
@@ -25,7 +26,10 @@ public class ProviderInfo {
                         String providerLongitude,
                         String providerCity,
                         String providerCountry,
-                        String providerStatus) {
+                        String providerStatus,
+                        String userEmail,
+                        String userID,
+                        String userName) {
         this.providerID = providerID;
         this.providerType = providerType;
         this.providerOrg = providerOrg;
@@ -36,6 +40,9 @@ public class ProviderInfo {
         this.providerCity = providerCity;
         this.providerCountry = providerCountry;
         this.providerStatus = providerStatus;
+        this.userEmail=userEmail;
+        this.userID = userID;
+        this.userName=userName;
     }
 
 
@@ -70,4 +77,15 @@ public class ProviderInfo {
     public String getProviderLongitude() {
         return providerLongitude;
     }
+
+    public String getUserEmail() {        return userEmail;    }
+
+    public String getUserName() {        return userName;    }
+
+    public String getUserID() {        return userID;    }
+
+    public ProviderInfo() {
+
+    }
+
 }

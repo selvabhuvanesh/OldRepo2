@@ -16,6 +16,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -40,8 +42,11 @@ public class SessionListActivity extends AppCompatActivity {
     SearchListAdapter adapter;
     String country;
     String city;
-    private FusedLocationProviderClient fusedLocationClient;
+    String userName;
+    String userEmail;
+    String userID;
 
+    private FusedLocationProviderClient fusedLocationClient;
 
     @Override
     protected void onStart() {
@@ -70,6 +75,16 @@ public class SessionListActivity extends AppCompatActivity {
         mListView = (ListView) findViewById(R.id.listview);
         mSessionInfoList = new ArrayList<SessionInfo>();
 
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(SessionListActivity.this);
+        if(acct != null)
+        {
+            userName = acct.getDisplayName();
+            userEmail = acct.getEmail();
+            userID = acct.getId();
+
+            //   Toast.makeText(this,"Inside the provider Name : "+personName,Toast.LENGTH_LONG).show();
+
+        }
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -102,7 +117,7 @@ public class SessionListActivity extends AppCompatActivity {
                                 city = addresses.get(0).getAdminArea();
                                 country = addresses.get(0).getCountryName();
                                 Toast.makeText(SessionListActivity.this, "Inside default Location : " + city + country, Toast.LENGTH_LONG).show();
-                                db = FirebaseDatabase.getInstance().getReference("Session").child(country).child(city);
+                                db = FirebaseDatabase.getInstance().getReference("Session").child(country).child(city).child(userID);
                                 db.addValueEventListener(new ValueEventListener() {
                                     // The below line commented is to be used for User view to see only records ready for booking
                                     //db.orderByChild("sessionStatus").equalTo("Booking").addValueEventListener(new ValueEventListener() {
@@ -110,13 +125,16 @@ public class SessionListActivity extends AppCompatActivity {
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                                         if (snapshot != null) {
                                             for (DataSnapshot ds : snapshot.getChildren()) {
-                                                sessionInfo = new SessionInfo("", "", "", "", "", "", "", "", "", "", "", "");
+                                                sessionInfo = new SessionInfo("", "", "", "", "", "", "", "", "", "", "", "","","","");
                                                 sessionInfo.sessionID = ds.child("sessionID").getValue().toString();
                                                 sessionInfo.sessionStatus = ds.child("sessionStatus").getValue().toString();
                                                 sessionInfo.mfromtime = ds.child("mfromtime").getValue().toString();
                                                 sessionInfo.mtotime = ds.child("mtotime").getValue().toString();
                                                 sessionInfo.sessionName = ds.child("sessionName").getValue().toString();
                                                 sessionInfo.providerID =ds.child("providerID").getValue().toString();
+                                                sessionInfo.userName = ds.child("userName").getValue().toString();
+                                                sessionInfo.userEmail = ds.child("userEmail").getValue().toString();
+                                                sessionInfo.userID = ds.child("userID").getValue().toString();
                                                 mSessionInfoList.add(sessionInfo);
                                                 adapter = new SearchListAdapter(getApplicationContext(), R.layout.row, mSessionInfoList);
                                                 mListView.setAdapter(adapter);

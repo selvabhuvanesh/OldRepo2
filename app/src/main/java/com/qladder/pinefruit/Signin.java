@@ -99,7 +99,7 @@ public class Signin<acct> extends AppCompatActivity {
             GoogleSignInAccount account = task.getResult(ApiException.class);
 
             // Signed in successfully, show authenticated UI.
-            //updateUI(account);
+            updateUI(account);
 
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.

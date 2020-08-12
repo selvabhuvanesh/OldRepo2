@@ -126,9 +126,14 @@ public class SessionScheduleActivity<TimePickerFragment> extends AppCompatActivi
                 );
                 timePickerDialog.updateTime(toHour, tomin);
                 timePickerDialog.show();
+                if(fromHour<toHour && frommin >tomin) {
 
-                savebtn.setEnabled(true);
-                publishbtn.setEnabled(true);
+                    savebtn.setEnabled(true);
+                    publishbtn.setEnabled(true);
+                }else
+                {
+                    Toast.makeText(SessionScheduleActivity.this,"From Time cannot be after To time", Toast.LENGTH_LONG);
+                }
             }
         });
 

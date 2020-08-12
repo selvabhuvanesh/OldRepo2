@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Pinefruit</string>
-    <string name="facility_hint">Company Name</string>
+    <string name="facility_hint">Business Name</string>
     <string name="facility_label">Facility Name</string>
     <string name="service_hint">Service Name</string>
     <string name="service_label">Service Name</string>
@@ -12,7 +12,8 @@
     <string name="Save">Save</string>
     <string name="Modify">Modify</string>
     <string name="Cancel">Cancel</string>
-    <string name="proceed">Proceed with Scheduling</string>
+    <string name="proceed">Schedule my Queue</string>
+    <string name="movetosession">Create Service</string>
     <string name="fronttext">Service Information</string>
     <string name="confrimlabel">Service Confirmation</string>
     <string name="booksuccess">Success !!! \nVerify your service information and share with your contacts to take bookings !!! \n</string>
@@ -32,7 +33,11 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="choose_location">Choose Location</string>
-    <string name="service_creation">Service Creation</string>
+    <string name="service_creation">Let your customers know where the service is provided?</string>
+    <string name="session_creation">Let your customers know about \n\nwhat service you provide.
+        \nExample "General Physician", "Orthopedic", "Road Test" - etc.,
+        \n\nWho provides it.\nExample "Dr.Abc", "Security Officer","YourName" - etc.,?</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

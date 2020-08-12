@@ -25,7 +25,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.qladder.pinefruit.data.ProviderInfo;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,10 +36,7 @@ public class SessionListActivity extends AppCompatActivity {
     List<SessionInfo> mSessionInfoList;
     ListView mListView;
     DatabaseReference db;
-    DatabaseReference providerDBref;
     SessionInfo sessionInfo;
-    DatabaseReference sessionDBref;
-    ProviderInfo providerInfo;
     SearchListAdapter adapter;
     String country;
     String city;

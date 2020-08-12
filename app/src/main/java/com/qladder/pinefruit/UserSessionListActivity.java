@@ -82,7 +82,7 @@ public class UserSessionListActivity extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     Toast.makeText(getApplicationContext(),"ITEM SELECTED IS  :  "+mSessionInfoList.get(i).getSessionID(),Toast.LENGTH_LONG).show();
-                    Intent providerInfoIntent = new Intent(UserSessionListActivity.this,ProviderInfoActivity.class);
+                    Intent providerInfoIntent = new Intent(UserSessionListActivity.this, ProviderOrgInfoActivity.class);
                     startActivity(providerInfoIntent);
                 }
             });

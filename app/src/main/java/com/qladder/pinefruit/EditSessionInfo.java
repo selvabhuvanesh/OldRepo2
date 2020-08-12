@@ -1,8 +1,6 @@
 package com.qladder.pinefruit;
 
 import android.content.Intent;
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -27,10 +25,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.qladder.pinefruit.data.ProviderInfo;
-
-import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
 
 import static com.google.android.gms.location.places.ui.PlacePicker.getPlace;
 
@@ -62,8 +56,6 @@ public class EditSessionInfo extends AppCompatActivity {
 
         proceedToSchedule = (Button) findViewById(R.id.proceed);
         providerOrg = (EditText) findViewById(R.id.providerOrg);
-        sessionName = (EditText) findViewById(R.id.serviceName);
-        providerName = (EditText) findViewById(R.id.providerName);
         choseLocationBtn = (Button) findViewById(R.id.choseLocation);
         providerId = getIntent().getStringExtra("providerID");
 
@@ -84,7 +76,7 @@ public class EditSessionInfo extends AppCompatActivity {
                         ProviderInfo mproviderInfo = snapshot.getValue(ProviderInfo.class);
                         providerOrg.setText(mproviderInfo.getProviderOrg());
                         //sessionName.setText(ds.child("sessionName").getValue().toString());
-                        providerName.setText(mproviderInfo.getProviderName());
+                       // providerName.setText(mproviderInfo.getProviderName());
                         Latitude = new Double(mproviderInfo.getProviderLatitude());
                         Longitude = new Double(mproviderInfo.getProviderLongitude());
 
@@ -154,48 +146,23 @@ public class EditSessionInfo extends AppCompatActivity {
         proceedToSchedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                proceedToScheduleIntent = new Intent(getApplicationContext(),SessionScheduleActivity.class);
-                String mproviderOrg = providerOrg.getText().toString();
-                String msessionName = sessionName.getText().toString();
-                String mproviderName = providerName.getText().toString();
+                proceedToScheduleIntent = new Intent(getApplicationContext(),SessionInfoActivity.class);
+                String mproviderOrg = providerOrg.getText().toString().trim();
 
-                if (!(mproviderName.trim().isEmpty() || msessionName.trim().isEmpty() || Latitude ==0.0 ))
+
+                if (!(Latitude ==0.0 || mproviderOrg == null))
                 {
-                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference myRef = database.getReference("Provider");
-                    providerId = myRef.push().getKey();
-                    ProviderInfo providerInfo = new ProviderInfo(
-                            providerId,
-                            providerType,
-                            mproviderOrg,
-                            mproviderName,
-                            Locality,
-                            String.valueOf(Latitude).toString(),
-                            String.valueOf(Longitude).toString(),
-                            city,
-                            country,
-                            status
-                    );
-                    db.setValue(providerInfo);
-                    // myRef.child( myRef.push().getKey()).setValue(providerInfo);
-                    proceedToScheduleIntent.putExtra("providerId", providerId);
+
                     proceedToScheduleIntent.putExtra("providerOrg", mproviderOrg);
-                    proceedToScheduleIntent.putExtra("sessionName", msessionName);
-                    proceedToScheduleIntent.putExtra("providerName",mproviderName);
                     proceedToScheduleIntent.putExtra("providerLatitude",String.valueOf(Latitude).toString());
                     proceedToScheduleIntent.putExtra("providerLongitude",String.valueOf(Longitude).toString());
-                    proceedToScheduleIntent.putExtra("providerCountry",country);
-                    proceedToScheduleIntent.putExtra("providerCity",city);
-                    proceedToScheduleIntent.putExtra("providerLocality",Locality);
-
-
-
+                    proceedToScheduleIntent.putExtra("providerType",providerType);
                     startActivity(proceedToScheduleIntent);
-                    finish();
+
                 }
                 else
                 {
-                    Toast.makeText(EditSessionInfo.this,"Required \n--------- \nLocation \nService Name \nProvider Name",Toast.LENGTH_LONG).show();
+                    Toast.makeText(EditSessionInfo.this,"Required \n------------ \nLocation",Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -215,21 +182,7 @@ public class EditSessionInfo extends AppCompatActivity {
             Place  place = getPlace(data,this);
             Latitude = place.getLatLng().latitude;
             Longitude = place.getLatLng().longitude;
-            status = "Active";
 
-            try {
-                Geocoder geo = new Geocoder(EditSessionInfo.this, Locale.getDefault());
-                List<Address> addresses = geo.getFromLocation(Latitude, Longitude, 1);
-                Locality = addresses.get(0).getLocality();
-                city = addresses.get(0).getAdminArea();
-                country = addresses.get(0).getCountryName();
-                Toast.makeText(this,"Locality is : "+Locality +
-                        "\nCity is : "+city+
-                        "\nCountry is : "+country,Toast.LENGTH_LONG).show();
-            }catch (IOException e)
-            {
-                e.printStackTrace();
-            }
         }
 
         }

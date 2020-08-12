@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.qladder.pinefruit.ProviderInfoActivity;
+import com.qladder.pinefruit.ProviderOrgInfoActivity;
 import com.qladder.pinefruit.R;
 import com.qladder.pinefruit.SessionListActivity;
 
@@ -37,7 +37,7 @@ public class HomeFragment extends Fragment{
         createNewbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent newIntent = new Intent(getContext(), ProviderInfoActivity.class);
+                Intent newIntent = new Intent(getContext(), ProviderOrgInfoActivity.class);
                 startActivity(newIntent);
 
             }

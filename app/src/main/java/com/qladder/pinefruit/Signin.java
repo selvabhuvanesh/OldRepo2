@@ -100,6 +100,7 @@ public class Signin<acct> extends AppCompatActivity {
 
             // Signed in successfully, show authenticated UI.
             updateUI(account);
+            startActivity(new Intent(Signin.this, ProviderChoiceActivity.class));
 
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.

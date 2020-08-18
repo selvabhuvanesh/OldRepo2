@@ -22,7 +22,7 @@ Button viewbtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_provider_choice);
+        setContentView(R.layout.p_activity_provider_choice);
         AccountManager am = AccountManager.get(this); // "this" references the current Context
         Account[] accounts = am.getAccountsByType("com.google");
         createNewbtn = (Button)findViewById(R.id.createSessionbtn);
@@ -61,7 +61,7 @@ Button viewbtn;
             public void onClick(View view) {
 
 
-                    Intent viewIntent = new Intent(ProviderChoiceActivity.this, SessionListActivity.class);
+                    Intent viewIntent = new Intent(ProviderChoiceActivity.this, ProviderSessionListActivity.class);
                     startActivity(viewIntent);
 
             }

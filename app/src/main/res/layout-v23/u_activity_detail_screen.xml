@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f4f4f4"
+    android:orientation="vertical"
+    tools:context=".UserSessionDetailScreen">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Provider Details"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:layout_marginTop="12dp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/montserrat"
+        android:gravity="center"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="15dp"
+        android:elevation="5dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/white_round">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:src="@drawable/doctor"
+
+                    tools:ignore="MissingClass" />
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Smith"
+                    android:textSize="16sp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/montserrat"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/session_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Heart Specialist"
+                    android:textSize="13sp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/montserrat"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/montserrat"
+                    android:gravity="center"
+                    android:text="date"
+                    android:textColor="#03A9F4"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/montserrat"
+                    android:gravity="center"
+                    android:text="From and to time"
+                    android:textColor="#E91E63"
+                    android:textSize="17dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/hospital"
+                android:padding="4dp"
+                android:visibility="visible"
+                android:layout_marginStart="10dp"/>
+
+            <TextView
+                android:id="@+id/org"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Hosipatal"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:fontFamily="@font/montserrat"
+                android:gravity="center_vertical"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/loc"
+                android:padding="6dp"
+                android:layout_marginStart="10dp"/>
+
+            <TextView
+                android:id="@+id/addr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="83G2+WG Stockholm, Sweden"
+                android:textSize="14sp"
+                android:layout_marginTop="2dp"
+                android:textColor="@color/gray"
+                android:fontFamily="@font/montserrat"
+                android:gravity="center_vertical"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/appointment"
+        android:layout_width="150dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/btn_bg_accept"
+        android:fontFamily="@font/montserrat"
+        android:text="Request Appointment"
+        android:layout_gravity="center_horizontal"
+        android:textAllCaps="false"
+        android:textColor="@color/white" />
+
+</LinearLayout>

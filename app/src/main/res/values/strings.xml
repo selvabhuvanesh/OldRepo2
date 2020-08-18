@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Pinefruit</string>
+    <string name="permission">You need to give some mandatory permissions to continue. Do you want to give permission?</string>
+    <string name="yes">Yes</string>
+    <string name="cancel">Cancel</string>
     <string name="facility_hint">Business Name</string>
     <string name="facility_label">Facility Name</string>
     <string name="service_hint">Service Name</string>

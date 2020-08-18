@@ -12,8 +12,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.qladder.pinefruit.ProviderOrgInfoActivity;
+import com.qladder.pinefruit.ProviderSessionListActivity;
 import com.qladder.pinefruit.R;
-import com.qladder.pinefruit.SessionListActivity;
 
 public class HomeFragment extends Fragment{
 
@@ -25,7 +25,7 @@ public class HomeFragment extends Fragment{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
       // super.onCreate(savedInstanceState);
        // super.onCreateView(inflater,container,savedInstanceState);
-       View view = inflater.inflate(R.layout.activity_provider_choice,container,false);
+       View view = inflater.inflate(R.layout.p_activity_provider_choice,container,false);
 
         createNewbtn = (Button) view.findViewById(R.id.createSessionbtn);
         viewbtn = (Button)view.findViewById(R.id.viewSessionbtn);
@@ -46,7 +46,7 @@ public class HomeFragment extends Fragment{
         viewbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent viewIntent = new Intent(getContext(), SessionListActivity.class);
+                Intent viewIntent = new Intent(getContext(), ProviderSessionListActivity.class);
                 startActivity(viewIntent);
             }
         });

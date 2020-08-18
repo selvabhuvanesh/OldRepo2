@@ -35,7 +35,7 @@ public class ProviderOrgInfoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_provider_info);
+        setContentView(R.layout.p_activity_provider_info);
 
         proceedToSchedule = (Button) findViewById(R.id.proceed);
         providerOrg = (EditText) findViewById(R.id.providerOrg);
@@ -82,7 +82,7 @@ public class ProviderOrgInfoActivity extends AppCompatActivity {
         proceedToSchedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                proceedToScheduleIntent = new Intent(getApplicationContext(),SessionInfoActivity.class);
+                proceedToScheduleIntent = new Intent(getApplicationContext(), ProviderSessionInfoActivity.class);
                 String mproviderOrg = providerOrg.getText().toString().trim();
 
 

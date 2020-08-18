@@ -22,7 +22,7 @@ public class ProviderRegitserConfirmActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_regitser_confirm);
+        setContentView(R.layout.p_activity_regitser_confirm);
 
         sharebtn = (Button) findViewById(R.id.shareBtn);
         providerNameText = (TextView) findViewById(R.id.providerNameText);
